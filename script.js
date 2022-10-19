@@ -24,3 +24,30 @@ const GameBoard = (() => {
         // just for testing purposes, remove later as access is unnecessary
         gameBoardState};
 })();
+
+const Player = (name, sign) => {
+    const getName = () => {
+        return name;
+    };
+    const getSign = () => {
+        return sign;
+    };
+    return {getName, getSign};
+};
+
+
+
+
+// originally put these into the Player object but might be better to actually put them in the game logic module
+const setPlayerSign = (sign) => {
+    //  will set the playerSign variable to X or O
+    playerSign = sign;
+};
+const choosePlayerSign = () => {
+    // will link to DOM elements for choosing either X or O
+    // diff between this and setPlayerSign is that only player 1 chooses sign (choose and set),
+        // whereas player 2 is forced to have the remaining sign (set)
+    // "x" is a placeholder, will be whatever value is returned from the targeted DOM element selected
+    setPlayerSign("x");
+    return;
+};
