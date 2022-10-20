@@ -70,7 +70,7 @@ const GameFlowController = (() => {
             // display error message function in DOM controller object
         }
     };
-    const endGame = () {
+    const endGame = () => {
         // call functions that are located in the DOM controller object
     };
     return {receivePlayerInput};
