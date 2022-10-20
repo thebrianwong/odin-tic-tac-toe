@@ -28,7 +28,7 @@ const GameBoard = (() => {
 
     // consider making update and reset functions private as player could mess with the game via console
         // perhaps call them in the getGameBoardState() function, with an if statement determining which, if any, needs to be called
-    return {getGameBoardState, updateGameBoardState, resetGameBoardState, checkForWinner, 
+    return {getGameBoardState, updateGameBoardState, resetGameBoardState, 
         // just for testing purposes, remove later as access is unnecessary
         gameBoardState};
 })();
