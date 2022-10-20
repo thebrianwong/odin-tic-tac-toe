@@ -18,11 +18,14 @@ const GameBoard = (() => {
             boardPosition = null;
         })
     };
-    const checkForWinner = () => {
-        // check for 3 in a row, will write later
-        console.log("test");
-        return;
-    };
+
+    // moved this to the GameFlowController object, but will keep this commented here for now
+    // const checkForWinner = () => {
+    //     // check for 3 in a row, will write later
+    //     console.log("test");
+    //     return;
+    // };
+
     // consider making update and reset functions private as player could mess with the game via console
         // perhaps call them in the getGameBoardState() function, with an if statement determining which, if any, needs to be called
     return {getGameBoardState, updateGameBoardState, resetGameBoardState, checkForWinner, 
