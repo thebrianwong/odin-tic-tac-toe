@@ -72,7 +72,7 @@ const GameFlowController = (() => {
         }
         // some code to determine if there is a 3 in a row
     };
-    const checkForValidMove = (player, boardPosition) => {
+    const checkForValidMove = (boardPosition) => {
         let gameBoardState = getGameBoardState();
         if (gameBoardState[boardPosition] === null) {
             // will probably move this somewhere else
@@ -88,7 +88,7 @@ const GameFlowController = (() => {
             updateGameBoardState(player, boardPosition);
             if (checkForWinner(player)) {
                 // display winner and play again button, prevent ability to click board
-                // endGame();
+                endGame();
             }
         } else {
             // display error message function in DOM controller object
@@ -96,6 +96,7 @@ const GameFlowController = (() => {
     };
     const endGame = () => {
         // call functions that are located in the DOM controller object
+        return;
     };
     return {receivePlayerInput};
 })();
