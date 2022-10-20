@@ -47,8 +47,33 @@ const GameFlowController = (() => {
     const checkForWinner = () => {
         getGameBoardState();
         // some code to determine if there is a 3 in a row
-    }
-    return {};
+    };
+    const checkForValidMove = (player, boardPosition) => {
+        let gameBoardState = getGameBoardState();
+        if (gameBoardState[boardPosition] === null) {
+            // will probably move this somewhere else
+            // updateGameBoardState(player, boardPosition);
+            return true;
+        } else {
+            // update the DOM to have an error message, probably have this function in the DOM controller object
+            return false;
+        }
+    };
+    const receivePlayerInput = (player, boardPosition) => {
+        if (checkForValidMove(player, boardPosition)) {
+            updateGameBoardState(player, boardPosition);
+            if (checkForWinner()) {
+                // display winner and play again button, prevent ability to click board
+                // endGame();
+            }
+        } else {
+            // display error message function in DOM controller object
+        }
+    };
+    const endGame = () {
+        // call functions that are located in the DOM controller object
+    };
+    return {receivePlayerInput};
 })();
 
 
