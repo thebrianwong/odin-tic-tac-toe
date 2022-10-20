@@ -89,6 +89,8 @@ const GameFlowController = (() => {
             if (checkForWinner(player)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
+            } else {
+                endTurn();
             }
         } else {
             // display error message function in DOM controller object
@@ -98,6 +100,10 @@ const GameFlowController = (() => {
         const newName = receivePlayerNameInput();
         const newSign = receivePlayerSignInput();
         const playerOne = Player(newName, newSign);
+    }
+    const endTurn = () => {
+        // some logic to alternate the current turn player
+        // will probably call another function to do so
     }
     const endGame = () => {
         // call functions that are located in the DOM controller object
