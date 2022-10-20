@@ -40,7 +40,13 @@ const Player = (name, sign) => {
     return {getName, getSign};
 };
 
-
+const GameFlowController = (() => {
+    const checkForWinner = () => {
+        getGameBoardState();
+        // some code to determine if there is a 3 in a row
+    }
+    return {};
+})();
 
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
