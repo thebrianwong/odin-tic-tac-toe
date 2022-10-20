@@ -83,7 +83,7 @@ const GameFlowController = (() => {
             return false;
         }
     };
-    const receivePlayerInput = (player, boardPosition) => {
+    const receivePlayerGameInput = (player, boardPosition) => {
         if (checkForValidMove(player, boardPosition)) {
             updateGameBoardState(player, boardPosition);
             if (checkForWinner(player)) {
@@ -94,13 +94,30 @@ const GameFlowController = (() => {
             // display error message function in DOM controller object
         }
     };
+    const createPlayerOne = () => {
+        const newName = receivePlayerNameInput();
+        const newSign = receivePlayerSignInput();
+        const playerOne = Player(newName, newSign);
+    }
     const endGame = () => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {receivePlayerInput};
+    return {receivePlayerGameInput};
 })();
 
+
+const DOMController = (() => {
+    const receivePlayerNameInput = () => {
+        // look at DOM element value (probably a form), return value
+        // pass the 2 variables to Player factory function ex. const player1 = Player()
+    }
+    const receivePlayerSignInput = () => {
+        // look at DOM buttons for X or O, return value
+        // only for player 1 since player 2 will get the sign not chosen
+    }
+    return {receivePlayerNameInput, receivePlayerSignInput};
+})();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
 const setPlayerSign = (sign) => {
