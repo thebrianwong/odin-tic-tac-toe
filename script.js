@@ -44,8 +44,32 @@ const Player = (name, sign) => {
 };
 
 const GameFlowController = (() => {
-    const checkForWinner = () => {
-        getGameBoardState();
+    const checkForWinner = (player) => {
+        const currentPlayerSign = player.getSign();
+        let gameBoardState = getGameBoardState();
+        if (gameBoardState[0] === currentPlayerSign) {
+            if (gameBoardState[1] === currentPlayerSign && gameBoardState[2] === currentPlayerSign) {
+                return true;
+            } else if (gameBoardState[3] === currentPlayerSign && gameBoardState[6] === currentPlayerSign) {
+                return true;
+            } else if (gameBoardState[4] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
+                return true;
+            }
+        } else if (gameBoardState[1] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[7] === currentPlayerSign) {
+            return true;
+        } else if (gameBoardState[2] === currentPlayerSign) {
+            if (gameBoardState[5] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
+                return true;
+            } else if (gameBoardState[4] === currentPlayerSign && gameBoardState[6] === currentPlayerSign) {
+                return true;
+            }
+        } else if (gameBoardState[3] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[5] === currentPlayerSign) {
+            return true;
+        } else if (gameBoardState[6] === currentPlayerSign && gameBoardState[7] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
+            return true;
+        } else {
+            return false;
+        }
         // some code to determine if there is a 3 in a row
     };
     const checkForValidMove = (player, boardPosition) => {
@@ -62,7 +86,7 @@ const GameFlowController = (() => {
     const receivePlayerInput = (player, boardPosition) => {
         if (checkForValidMove(player, boardPosition)) {
             updateGameBoardState(player, boardPosition);
-            if (checkForWinner()) {
+            if (checkForWinner(player)) {
                 // display winner and play again button, prevent ability to click board
                 // endGame();
             }
