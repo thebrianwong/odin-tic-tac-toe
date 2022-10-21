@@ -148,10 +148,17 @@ const GameFlowController = (() => {
 
 
 const DOMController = (() => {
+    const playerForm = document.querySelector(".player-form");
     const playerOneSubmitFormButton = document.querySelector("#one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#two-submit-form-button");
-    playerOneSubmitFormButton.addEventListener("click", createPlayerOne());
-    playerTwoSubmitFormButton.addEventListener("click", createPlayerTwo());
+    playerOneSubmitFormButton.addEventListener("click", () => {
+        createPlayerOne();
+        hidePlayerForm();
+    });
+    playerTwoSubmitFormButton.addEventListener("click", () => {
+        createPlayerTwo();
+        hidePlayerForm();
+    });
     const receivePlayerNameInput = () => {
         // look at DOM element value (probably a form), return value
         // pass the 2 variables to Player factory function ex. const player1 = Player()
@@ -171,6 +178,14 @@ const DOMController = (() => {
             return playerSignOButton.value;
         }
     }
+    const displayPlayerForm = () => {
+        playerForm.classList.remove("form-hide-animation");
+        playerForm.classList.add("form-display-animation");
+    };
+    const hidePlayerForm = () => {
+        playerForm.classList.remove("form-display-animation");
+        playerForm.classList.add("form-hide-animation");
+    };
     return {receivePlayerNameInput, receivePlayerSignInput};
 })();
 
