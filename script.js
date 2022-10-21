@@ -227,7 +227,8 @@ const DOMController = (() => {
         const boardPositionElement = document.querySelector(`data-board-position-${boardPosition}`);
         boardPositionElement.value = currentPlayerSign;
     }
-    return {receivePlayerNameInput, receivePlayerSignInput};
+    return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
+            toggleDrawMessage, displayGameBoardState};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
