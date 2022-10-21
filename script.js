@@ -7,8 +7,9 @@ const GameBoard = (() => {
     const getGameBoardState = () => {
         return gameBoardState;
     };
-    const updateGameBoardState = (player, boardPosition) => {
-        gameBoardState[boardPosition] = player.getSign();
+    const updateGameBoardState = (boardPosition) => {
+        let currentPlayer = getCurrentPlayer();
+        gameBoardState[boardPosition] = currentPlayer.getSign();
         // probably will want to call some function to render this update change.
             // function will be written in a displayController module object.
             // or maybe that render function part of the displayController object will call this function, idk yet
@@ -62,9 +63,9 @@ const Player = (name, sign) => {
 };
 
 const GameFlowController = (() => {
-    let currentPlayerTurn = null;
-    const getCurrentPlayerTurn = () => {
-        return currentPlayerTurn;
+    let currentPlayer = null;
+    const getCurrentPlayer = () => {
+        return currentPlayer;
     }
     const checkForWinner = (player) => {
         const currentPlayerSign = player.getSign();
@@ -105,10 +106,10 @@ const GameFlowController = (() => {
             return false;
         }
     };
-    const receivePlayerGameInput = (player, boardPosition) => {
-        if (checkForValidMove(player, boardPosition)) {
-            updateGameBoardState(player, boardPosition);
-            if (checkForWinner(player)) {
+    const receivePlayerGameInput = (currentPlayer, boardPosition) => {
+        if (checkForValidMove(currentPlayer, boardPosition)) {
+            updateGameBoardState(currentPlayer, boardPosition);
+            if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
             } else {
@@ -130,10 +131,10 @@ const GameFlowController = (() => {
     const endTurn = (playerOne, playerTwo) => {
         // some logic to alternate the current turn player
         // will probably call another function to do so
-        if (currentPlayerTurn === playerOne) {
-            currentPlayerTurn === playerTwo;
+        if (currentPlayer === playerOne) {
+            currentPlayer === playerTwo;
         } else {
-            currentPlayerTurn === playerOne;
+            currentPlayer === playerOne;
         }
     }
     const endGame = () => {
