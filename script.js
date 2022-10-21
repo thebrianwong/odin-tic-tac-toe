@@ -164,9 +164,9 @@ const DOMController = (() => {
         const playerSignXButton = document.querySelector(".sign-x-button");
         const playerSignOButton = document.querySelector(".sign-o-button");
         if (playerSignXButton.checked) {
-            return playerSignXButton;
+            return playerSignXButton.value;
         } else {
-            return playerSignOButton;
+            return playerSignOButton.value;
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput};
