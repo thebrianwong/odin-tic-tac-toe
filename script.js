@@ -50,8 +50,8 @@ const Player = (name, sign) => {
         const playerTwoNewSign = assignPlayerSign();
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
     }
-    const assignPlayerSign = (player1) => {
-        const playerOneSign = player1.getSign();
+    const assignPlayerSign = (playerOne) => {
+        const playerOneSign = playerOne.getSign();
         if (playerOneSign === "x") {
             return "o";
         } else {
