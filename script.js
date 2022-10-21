@@ -10,28 +10,15 @@ const GameBoard = (() => {
     const updateGameBoardState = (boardPosition) => {
         let currentPlayer = getCurrentPlayer();
         gameBoardState[boardPosition] = currentPlayer.getSign();
-        // probably will want to call some function to render this update change.
-            // function will be written in a displayController module object.
-            // or maybe that render function part of the displayController object will call this function, idk yet
     };
     const resetGameBoardState = () => {
         gameBoardState.forEach((boardPosition) => {
             boardPosition = null;
         })
     };
-
-    // moved this to the GameFlowController object, but will keep this commented here for now
-    // const checkForWinner = () => {
-    //     // check for 3 in a row, will write later
-    //     console.log("test");
-    //     return;
-    // };
-
     // consider making update and reset functions private as player could mess with the game via console
         // perhaps call them in the getGameBoardState() function, with an if statement determining which, if any, needs to be called
-    return {getGameBoardState, updateGameBoardState, resetGameBoardState, 
-        // just for testing purposes, remove later as access is unnecessary
-        gameBoardState};
+    return {getGameBoardState, updateGameBoardState, resetGameBoardState};
 })();
 
 const Player = (name, sign) => {
@@ -95,16 +82,12 @@ const GameFlowController = (() => {
         } else {
             return false;
         }
-        // some code to determine if there is a 3 in a row
     };
     const checkForValidMove = (boardPosition) => {
         let gameBoardState = getGameBoardState();
         if (gameBoardState[boardPosition] === null) {
-            // will probably move this somewhere else
-            // updateGameBoardState(player, boardPosition);
             return true;
         } else {
-            // update the DOM to have an error message, probably have this function in the DOM controller object
             return false;
         }
     };
