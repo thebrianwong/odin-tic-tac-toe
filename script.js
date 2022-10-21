@@ -120,6 +120,7 @@ const GameFlowController = (() => {
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
         if (checkForValidMove(currentPlayer, boardPosition)) {
             updateGameBoardState(currentPlayer, boardPosition);
+            displayGameBoardState(currentPlayer, boardPosition)
             if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
@@ -237,6 +238,11 @@ const DOMController = (() => {
         } else if (action === "hide") {
             resultsMessage.style.visibility = "hidden";
         }
+    }
+    const displayGameBoardState = (currentPlayer, boardPosition) => {
+        const currentPlayerSign = currentPlayer.getSign();
+        const boardPositionElement = document.querySelector(`data-board-position-${boardPosition}`);
+        boardPositionElement.value = currentPlayerSign;
     }
     return {receivePlayerNameInput, receivePlayerSignInput};
 })();
