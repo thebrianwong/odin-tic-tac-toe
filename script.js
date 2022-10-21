@@ -62,6 +62,10 @@ const Player = (name, sign) => {
 };
 
 const GameFlowController = (() => {
+    let currentPlayerTurn = null;
+    const getCurrentPlayerTurn = () => {
+        return currentPlayerTurn;
+    }
     const checkForWinner = (player) => {
         const currentPlayerSign = player.getSign();
         let gameBoardState = getGameBoardState();
@@ -121,10 +125,16 @@ const GameFlowController = (() => {
         // new form appears where player 2 types in name, maybe player 1 sign is grayed out
         // click button to submit, probably where createPlayerTwo() is called
         // then have it be player 1's turn and they can make a move
+        // assign currentPlayerTurn to player 1
     }
-    const endTurn = () => {
+    const endTurn = (playerOne, playerTwo) => {
         // some logic to alternate the current turn player
         // will probably call another function to do so
+        if (currentPlayerTurn === playerOne) {
+            currentPlayerTurn === playerTwo;
+        } else {
+            currentPlayerTurn === playerOne;
+        }
     }
     const endGame = () => {
         // call functions that are located in the DOM controller object
