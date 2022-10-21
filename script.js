@@ -114,6 +114,10 @@ const GameFlowController = (() => {
             if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
+                displayWinnerMessage(currentPlayer);
+            } else if (checkforDraw()) {
+                endGame();
+                displayDrawMessage();
             } else {
                 endTurn();
             }
