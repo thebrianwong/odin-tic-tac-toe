@@ -119,6 +119,7 @@ const GameFlowController = (() => {
             }
         } else {
             // display error message function in DOM controller object
+            toggleInvalidMoveErrorMessage("display");
         }
     };
     const startGame = () => {
@@ -186,6 +187,14 @@ const DOMController = (() => {
         playerForm.classList.remove("form-display-animation");
         playerForm.classList.add("form-hide-animation");
     };
+    const toggleInvalidMoveErrorMessage = (action) => {
+        const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
+        if (action === "display") {
+            invalidMoveErrorMessage.style.visibility = "visible";
+        } else if (action === "hide") {
+            invalidMoveErrorMessage.style.visibility = "hidden";
+        }
+    }
     return {receivePlayerNameInput, receivePlayerSignInput};
 })();
 
