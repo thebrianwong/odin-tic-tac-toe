@@ -146,13 +146,28 @@ const GameFlowController = (() => {
 
 
 const DOMController = (() => {
+    const playerOneSubmitFormButton = document.querySelector("#one-submit-form-button");
+    const playerTwoSubmitFormButton = document.querySelector("#two-submit-form-button");
+    playerOneSubmitFormButton.addEventListener("click", createPlayerOne());
+    playerTwoSubmitFormButton.addEventListener("click", createPlayerTwo());
     const receivePlayerNameInput = () => {
         // look at DOM element value (probably a form), return value
         // pass the 2 variables to Player factory function ex. const player1 = Player()
+        const playerNameInputElement = document.querySelector(".player-name-input");
+        const playerNameInput = playerNameInputElement.value;
+        return playerNameInput;
     }
     const receivePlayerSignInput = () => {
         // look at DOM buttons for X or O, return value
         // only for player 1 since player 2 will get the sign not chosen
+        // the buttons will likely be radio buttons that are styled to look like regular buttons
+        const playerSignXButton = document.querySelector(".sign-x-button");
+        const playerSignOButton = document.querySelector(".sign-o-button");
+        if (playerSignXButton.checked) {
+            return playerSignXButton;
+        } else {
+            return playerSignOButton;
+        }
     }
     return {receivePlayerNameInput, receivePlayerSignInput};
 })();
