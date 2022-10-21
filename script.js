@@ -108,6 +108,15 @@ const GameFlowController = (() => {
             return false;
         }
     };
+    const checkForDraw = () => {
+        let gameBoardState = getGameBoardState();
+        for (boardPosition in gameBoardState) {
+            if (gameBoardState[boardPosition] === null) {
+                return false;
+            }
+        }
+        return true;
+    }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
         if (checkForValidMove(currentPlayer, boardPosition)) {
             updateGameBoardState(currentPlayer, boardPosition);
@@ -115,7 +124,7 @@ const GameFlowController = (() => {
                 // display winner and play again button, prevent ability to click board
                 endGame();
                 toggleWinnerMessage("display", currentPlayer);
-            } else if (checkforDraw()) {
+            } else if (checkForDraw()) {
                 endGame();
                 toggleDrawMessage("display");
             } else {
