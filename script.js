@@ -224,7 +224,7 @@ const DOMController = (() => {
     }
     const displayGameBoardState = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
-        const boardPositionElement = document.querySelector(`data-board-position-${boardPosition}`);
+        const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         boardPositionElement.value = currentPlayerSign;
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
