@@ -59,7 +59,7 @@ const Player = (name, sign) => {
             return "x";
         }
     }
-    return {getName, getSign};
+    return {getName, getSign, createPlayerOne, createPlayerTwo};
 };
 
 const GameFlowController = (() => {
@@ -141,7 +141,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {receivePlayerGameInput};
+    return {getCurrentPlayer, receivePlayerGameInput, startGame};
 })();
 
 
