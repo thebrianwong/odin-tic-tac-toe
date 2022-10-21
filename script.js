@@ -150,8 +150,8 @@ const GameFlowController = (() => {
 
 const DOMController = (() => {
     const playerForm = document.querySelector(".player-form");
-    const playerOneSubmitFormButton = document.querySelector("#one-submit-form-button");
-    const playerTwoSubmitFormButton = document.querySelector("#two-submit-form-button");
+    const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
+    const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
     playerOneSubmitFormButton.addEventListener("click", () => {
         createPlayerOne();
         hidePlayerForm();
