@@ -40,6 +40,24 @@ const Player = (name, sign) => {
     const getSign = () => {
         return sign;
     };
+    const createPlayerOne = () => {
+        const playerOneNewName = receivePlayerNameInput();
+        const playerOneNewSign = receivePlayerSignInput();
+        const playerOne = Player(playerOneNewName, playerOneNewSign);
+    }
+    const createPlayerTwo = () => {
+        const playerTwoNewName = receivePlayerNameInput();
+        const playerTwoNewSign = assignPlayerSign();
+        const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
+    }
+    const assignPlayerSign = (player1) => {
+        const playerOneSign = player1.getSign();
+        if (playerOneSign === "x") {
+            return "o";
+        } else {
+            return "x";
+        }
+    }
     return {getName, getSign};
 };
 
@@ -96,24 +114,6 @@ const GameFlowController = (() => {
             // display error message function in DOM controller object
         }
     };
-    const createPlayerOne = () => {
-        const playerOneNewName = receivePlayerNameInput();
-        const playerOneNewSign = receivePlayerSignInput();
-        const playerOne = Player(playerOneNewName, playerOneNewSign);
-    }
-    const createPlayerTwo = () => {
-        const playerTwoNewName = receivePlayerNameInput();
-        const playerTwoNewSign = assignPlayerSign();
-        const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
-    }
-    const assignPlayerSign = (player1) => {
-        const playerOneSign = player1.getSign();
-        if (playerOneSign === "x") {
-            return "o";
-        } else {
-            return "x";
-        }
-    }
     const endTurn = () => {
         // some logic to alternate the current turn player
         // will probably call another function to do so
