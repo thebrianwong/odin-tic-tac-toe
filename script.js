@@ -114,6 +114,14 @@ const GameFlowController = (() => {
             // display error message function in DOM controller object
         }
     };
+    const startGame = () => {
+        // connect to some DOM element button with click listener
+        // form appears where you type in name and choose sign as player 1
+        // click button to submit, probably where createPlayerOne() is called
+        // new form appears where player 2 types in name, maybe player 1 sign is grayed out
+        // click button to submit, probably where createPlayerTwo() is called
+        // then have it be player 1's turn and they can make a move
+    }
     const endTurn = () => {
         // some logic to alternate the current turn player
         // will probably call another function to do so
