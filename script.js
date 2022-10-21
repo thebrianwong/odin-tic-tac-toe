@@ -149,7 +149,8 @@ const GameFlowController = (() => {
 
 
 const DOMController = (() => {
-    const playerForm = document.querySelector(".player-form");
+    // uncomment if toggle function is removed
+    // const playerForm = document.querySelector(".player-form");
     const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
     playerOneSubmitFormButton.addEventListener("click", () => {
@@ -179,13 +180,24 @@ const DOMController = (() => {
             return playerSignOButton.value;
         }
     }
-    const displayPlayerForm = () => {
-        playerForm.classList.remove("form-hide-animation");
-        playerForm.classList.add("form-display-animation");
-    };
-    const hidePlayerForm = () => {
-        playerForm.classList.remove("form-display-animation");
-        playerForm.classList.add("form-hide-animation");
+    // keeping as a comment in case toggle function is removed
+    // const displayPlayerForm = () => {
+    //     playerForm.classList.remove("form-hide-animation");
+    //     playerForm.classList.add("form-display-animation");
+    // };
+    // const hidePlayerForm = () => {
+    //     playerForm.classList.remove("form-display-animation");
+    //     playerForm.classList.add("form-hide-animation");
+    // };
+    const togglePlayerForm = (action) => {
+        const playerForm = document.querySelector(".player-form");
+        if (action === "display") {
+            playerForm.classList.remove("form-hide-animation");
+            playerForm.classList.add("form-display-animation");
+        } else if (action === "hide") {
+            playerForm.classList.remove("form-display-animation");
+            playerForm.classList.add("form-hide-animation");
+        }
     };
     const toggleInvalidMoveErrorMessage = (action) => {
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
