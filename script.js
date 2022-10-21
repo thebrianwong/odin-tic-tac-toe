@@ -114,10 +114,10 @@ const GameFlowController = (() => {
             if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
-                displayWinnerMessage(currentPlayer);
+                toggleWinnerMessage("display", currentPlayer);
             } else if (checkforDraw()) {
                 endGame();
-                displayDrawMessage();
+                toggleDrawMessage("display");
             } else {
                 endTurn();
             }
@@ -155,6 +155,7 @@ const GameFlowController = (() => {
 const DOMController = (() => {
     // uncomment if toggle function is removed
     // const playerForm = document.querySelector(".player-form");
+    const resultsMessage = document.querySelector(".results-message");
     const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
     playerOneSubmitFormButton.addEventListener("click", () => {
@@ -209,6 +210,23 @@ const DOMController = (() => {
             invalidMoveErrorMessage.style.visibility = "visible";
         } else if (action === "hide") {
             invalidMoveErrorMessage.style.visibility = "hidden";
+        }
+    }
+    const toggleWinnerMessage = (action, player) => {
+        const winningPlayerName = player.getName();
+        resultsMessage.textContent = `Congratulations, ${winningPlayerName}! You Win!`;
+        if (action === "display") {
+            resultsMessage.style.visibility = "visible";
+        } else if (action === "hide") {
+            resultsMessage.style.visibility = "hidden";
+        }
+    }
+    const toggleDrawMessage = (action) => {
+        resultsMessage.textContent = `It's A Draw! Better Luck Next Time!`;
+        if (action === "display") {
+            resultsMessage.style.visibility = "visible";
+        } else if (action === "hide") {
+            resultsMessage.style.visibility = "hidden";
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput};
