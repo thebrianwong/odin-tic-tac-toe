@@ -45,11 +45,13 @@ const Player = (name, sign) => {
         const playerOneNewName = receivePlayerNameInput();
         const playerOneNewSign = receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
+        return playerOne;
     }
     const createPlayerTwo = () => {
         const playerTwoNewName = receivePlayerNameInput();
-        const playerTwoNewSign = assignPlayerSign();
+        const playerTwoNewSign = assignPlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
+        return playerTwo;
     }
     const assignPlayerSign = (playerOne) => {
         const playerOneSign = playerOne.getSign();
