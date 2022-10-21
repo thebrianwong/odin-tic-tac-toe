@@ -97,9 +97,22 @@ const GameFlowController = (() => {
         }
     };
     const createPlayerOne = () => {
-        const newName = receivePlayerNameInput();
-        const newSign = receivePlayerSignInput();
-        const playerOne = Player(newName, newSign);
+        const playerOneNewName = receivePlayerNameInput();
+        const playerOneNewSign = receivePlayerSignInput();
+        const playerOne = Player(playerOneNewName, playerOneNewSign);
+    }
+    const createPlayerTwo = () => {
+        const playerTwoNewName = receivePlayerNameInput();
+        const playerTwoNewSign = assignPlayerSign();
+        const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
+    }
+    const assignPlayerSign = (player1) => {
+        const playerOneSign = player1.getSign();
+        if (playerOneSign === "x") {
+            return "o";
+        } else {
+            return "x";
+        }
     }
     const endTurn = () => {
         // some logic to alternate the current turn player
