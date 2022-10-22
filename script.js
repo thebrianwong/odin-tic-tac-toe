@@ -101,6 +101,9 @@ const GameFlowController = (() => {
         return true;
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
+        console.log("test")
+        console.log(currentPlayer)
+        console.log(boardPosition)
         if (checkForValidMove(currentPlayer, boardPosition)) {
             GameBoard.updateGameBoardState(currentPlayer, boardPosition);
             DOMController.displayGameBoardState(currentPlayer, boardPosition)
@@ -159,6 +162,14 @@ const DOMController = (() => {
     //     createPlayerTwo();
     //     hidePlayerForm();
     // });
+    const addPlayerMoveClickers = () => {
+        const boardPositions = Array.from(document.querySelectorAll(".board-tile"));
+        boardPositions.forEach((boardTile) => {
+            let currentPlayer = GameFlowController.getCurrentPlayer();
+            let boardPosition = boardTile.dataset.boardPosition;
+            boardTile.addEventListener("click", ((GameFlowController.receivePlayerGameInput.bind(this, currentPlayer, boardPosition))));
+        })
+    }
     const receivePlayerNameInput = () => {
         // look at DOM element value (probably a form), return value
         // pass the 2 variables to Player factory function ex. const player1 = Player()
@@ -200,7 +211,7 @@ const DOMController = (() => {
     const toggleInvalidMoveErrorMessage = (action) => {
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
         if (action === "display") {
-            invalidMoveErrorMessage.style.visibility = "visible";
+            // invalidMoveErrorMessage.style.visibility = "visible";
         } else if (action === "hide") {
             invalidMoveErrorMessage.style.visibility = "hidden";
         }
@@ -240,7 +251,7 @@ const DOMController = (() => {
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState};
+            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
@@ -256,3 +267,5 @@ const choosePlayerSign = () => {
     setPlayerSign("x");
     return;
 };
+
+DOMController.addPlayerMoveClickers();
