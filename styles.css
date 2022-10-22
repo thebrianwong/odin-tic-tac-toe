@@ -61,3 +61,8 @@
     grid-area: tile8;
 }
 
+.test-container {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+}
