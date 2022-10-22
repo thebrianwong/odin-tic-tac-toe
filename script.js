@@ -9,6 +9,7 @@ const GameBoard = (() => {
     };
     const updateGameBoardState = (boardPosition) => {
         let currentPlayer = GameFlowController.getCurrentPlayer();
+        // console.log(currentPlayer);
         gameBoardState[boardPosition] = currentPlayer.getSign();
     };
     const resetGameBoardState = () => {
@@ -119,7 +120,7 @@ const GameFlowController = (() => {
         console.log(currentPlayer)
         console.log(boardPosition)
         if (checkForValidMove(boardPosition)) {
-            GameBoard.updateGameBoardState(currentPlayer, boardPosition);
+            GameBoard.updateGameBoardState(boardPosition);
             DOMController.displayGameBoardState(currentPlayer, boardPosition)
             if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
@@ -129,6 +130,7 @@ const GameFlowController = (() => {
                 endGame();
                 DOMController.toggleDrawMessage("display");
             } else {
+                alternateCurrentPlayer();
                 endTurn();
             }
         } else {
@@ -138,6 +140,13 @@ const GameFlowController = (() => {
     };
     const setCurrentPlayer = (player) => {
         currentPlayer = player;
+    }
+    const alternateCurrentPlayer = () => {
+        if (currentPlayer === playerObjectsArray[0]) {
+            currentPlayer = playerObjectsArray[1];
+        } else {
+            currentPlayer = playerObjectsArray[0];
+        }
     }
     const startGame = () => {
         // connect to some DOM element button with click listener
@@ -151,6 +160,7 @@ const GameFlowController = (() => {
     const endTurn = (playerOne, playerTwo) => {
         // some logic to alternate the current turn player
         // will probably call another function to do so
+        console.log("test");
         if (currentPlayer === playerOne) {
             currentPlayer === playerTwo;
         } else {
