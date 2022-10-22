@@ -151,14 +151,14 @@ const DOMController = (() => {
     const resultsMessage = document.querySelector(".results-message");
     const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
-    playerOneSubmitFormButton.addEventListener("click", () => {
-        createPlayerOne();
-        hidePlayerForm();
-    });
-    playerTwoSubmitFormButton.addEventListener("click", () => {
-        createPlayerTwo();
-        hidePlayerForm();
-    });
+    // playerOneSubmitFormButton.addEventListener("click", () => {
+    //     createPlayerOne();
+    //     hidePlayerForm();
+    // });
+    // playerTwoSubmitFormButton.addEventListener("click", () => {
+    //     createPlayerTwo();
+    //     hidePlayerForm();
+    // });
     const receivePlayerNameInput = () => {
         // look at DOM element value (probably a form), return value
         // pass the 2 variables to Player factory function ex. const player1 = Player()
@@ -222,13 +222,25 @@ const DOMController = (() => {
             resultsMessage.style.visibility = "hidden";
         }
     }
+    // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
     const displayGameBoardState = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         boardPositionElement.value = currentPlayerSign;
     }
+    const testDisplayEntireGameBoardState = () => {
+        const gameBoardState = GameBoard.getGameBoardState();
+        for (let i = 0; i < gameBoardState.length; i++) {
+            const boardPositionElement = document.querySelector(`[data-board-position="${i}"]`);
+            if (gameBoardState[i] === null) {
+                boardPositionElement.textContent = "";
+            } else {
+                boardPositionElement.textContent = gameBoardState[i];
+            }
+        }
+    }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, displayGameBoardState};
+            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
