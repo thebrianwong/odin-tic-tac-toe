@@ -28,6 +28,22 @@ const Player = (name, sign) => {
     const getSign = () => {
         return sign;
     };
+    const assignPlayerSign = (playerOne) => {
+        const playerOneSign = playerOne.getSign();
+        if (playerOneSign === "x") {
+            return "o";
+        } else {
+            return "x";
+        }
+    }
+    return {getName, getSign};
+};
+
+const GameFlowController = (() => {
+    let currentPlayer = null;
+    const getCurrentPlayer = () => {
+        return currentPlayer;
+    }
     const createPlayerOne = () => {
         const playerOneNewName = DOMController.receivePlayerNameInput();
         const playerOneNewSign = DOMController.receivePlayerSignInput();
@@ -39,22 +55,6 @@ const Player = (name, sign) => {
         const playerTwoNewSign = DOMController.assignPlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
         return playerTwo;
-    }
-    const assignPlayerSign = (playerOne) => {
-        const playerOneSign = playerOne.getSign();
-        if (playerOneSign === "x") {
-            return "o";
-        } else {
-            return "x";
-        }
-    }
-    return {getName, getSign, createPlayerOne, createPlayerTwo};
-};
-
-const GameFlowController = (() => {
-    let currentPlayer = null;
-    const getCurrentPlayer = () => {
-        return currentPlayer;
     }
     const checkForWinner = (player) => {
         const currentPlayerSign = player.getSign();
@@ -144,7 +144,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {getCurrentPlayer, receivePlayerGameInput, startGame};
+    return {getCurrentPlayer, receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo};
 })();
 
 
