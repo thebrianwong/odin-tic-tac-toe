@@ -28,32 +28,46 @@ const Player = (name, sign) => {
     const getSign = () => {
         return sign;
     };
-    const assignPlayerSign = (playerOne) => {
-        const playerOneSign = playerOne.getSign();
-        if (playerOneSign === "x") {
-            return "o";
-        } else {
-            return "x";
-        }
-    }
-    return {getName, getSign};
+    return {sign, getName, getSign};
 };
 
 const GameFlowController = (() => {
     let currentPlayer = null;
+    let playerObjectsArray = [];
     const getCurrentPlayer = () => {
         return currentPlayer;
+    }
+    const addPlayersToArray = (player) => {
+        playerObjectsArray.push(player)
+    }
+    const getPlayerArray = () => {
+        return playerObjectsArray;
+    }
+    const getPlayerFromArray = (index) => {
+        return playerObjectsArray[index];
+    }
+    const assignPlayerSign = (playerOne) => {
+        const playerOneSign = playerOne.getSign();
+        if (playerOneSign === "X") {
+            return "O";
+        } else {
+            return "X";
+        }
     }
     const createPlayerOne = () => {
         const playerOneNewName = DOMController.receivePlayerNameInput();
         const playerOneNewSign = DOMController.receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
+        console.log(playerOne)
+        addPlayersToArray(playerOne);
         return playerOne;
     }
     const createPlayerTwo = () => {
+        const playerOne = getPlayerFromArray(0);
         const playerTwoNewName = DOMController.receivePlayerNameInput();
-        const playerTwoNewSign = DOMController.assignPlayerSign(playerOne);
+        const playerTwoNewSign = assignPlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
+        addPlayersToArray(playerTwo);
         return playerTwo;
     }
     const checkForWinner = (player) => {
@@ -144,7 +158,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {getCurrentPlayer, receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray};
 })();
 
 
@@ -154,14 +168,14 @@ const DOMController = (() => {
     const resultsMessage = document.querySelector(".results-message");
     const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
-    // playerOneSubmitFormButton.addEventListener("click", () => {
-    //     createPlayerOne();
-    //     hidePlayerForm();
-    // });
-    // playerTwoSubmitFormButton.addEventListener("click", () => {
-    //     createPlayerTwo();
-    //     hidePlayerForm();
-    // });
+    playerOneSubmitFormButton.addEventListener("click", () => {
+        const playerOne = GameFlowController.createPlayerOne();
+        // hidePlayerForm();
+    });
+    playerTwoSubmitFormButton.addEventListener("click", () => {
+        const playerTwo = GameFlowController.createPlayerTwo();
+        // hidePlayerForm();
+    });
     const addPlayerMoveClickers = () => {
         const boardPositions = Array.from(document.querySelectorAll(".board-tile"));
         boardPositions.forEach((boardTile) => {
@@ -184,9 +198,10 @@ const DOMController = (() => {
         const playerSignXButton = document.querySelector(".sign-x-button");
         const playerSignOButton = document.querySelector(".sign-o-button");
         if (playerSignXButton.checked) {
-            return playerSignXButton.value;
+            console.log(playerSignXButton.getAttribute("id"))
+            return playerSignXButton.getAttribute("id");
         } else {
-            return playerSignOButton.value;
+            return playerSignOButton.getAttribute("id");
         }
     }
     // keeping as a comment in case toggle function is removed
@@ -263,8 +278,8 @@ const choosePlayerSign = () => {
     // will link to DOM elements for choosing either X or O
     // diff between this and setPlayerSign is that only player 1 chooses sign (choose and set),
         // whereas player 2 is forced to have the remaining sign (set)
-    // "x" is a placeholder, will be whatever value is returned from the targeted DOM element selected
-    setPlayerSign("x");
+    // "X" is a placeholder, will be whatever value is returned from the targeted DOM element selected
+    setPlayerSign("X");
     return;
 };
 
