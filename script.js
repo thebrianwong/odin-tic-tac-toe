@@ -226,7 +226,7 @@ const DOMController = (() => {
     const displayGameBoardState = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
-        boardPositionElement.value = currentPlayerSign;
+        boardPositionElement.textContent = currentPlayerSign;
     }
     const testDisplayEntireGameBoardState = () => {
         const gameBoardState = GameBoard.getGameBoardState();
