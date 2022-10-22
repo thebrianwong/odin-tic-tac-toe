@@ -8,7 +8,7 @@ const GameBoard = (() => {
         return gameBoardState;
     };
     const updateGameBoardState = (boardPosition) => {
-        let currentPlayer = getCurrentPlayer();
+        let currentPlayer = GameFlowController.getCurrentPlayer();
         gameBoardState[boardPosition] = currentPlayer.getSign();
     };
     const resetGameBoardState = () => {
@@ -29,14 +29,14 @@ const Player = (name, sign) => {
         return sign;
     };
     const createPlayerOne = () => {
-        const playerOneNewName = receivePlayerNameInput();
-        const playerOneNewSign = receivePlayerSignInput();
+        const playerOneNewName = DOMController.receivePlayerNameInput();
+        const playerOneNewSign = DOMController.receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
         return playerOne;
     }
     const createPlayerTwo = () => {
-        const playerTwoNewName = receivePlayerNameInput();
-        const playerTwoNewSign = assignPlayerSign(playerOne);
+        const playerTwoNewName = DOMController.receivePlayerNameInput();
+        const playerTwoNewSign = DOMController.assignPlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
         return playerTwo;
     }
@@ -58,7 +58,7 @@ const GameFlowController = (() => {
     }
     const checkForWinner = (player) => {
         const currentPlayerSign = player.getSign();
-        let gameBoardState = getGameBoardState();
+        let gameBoardState = GameBoard.getGameBoardState();
         if (gameBoardState[0] === currentPlayerSign) {
             if (gameBoardState[1] === currentPlayerSign && gameBoardState[2] === currentPlayerSign) {
                 return true;
@@ -84,7 +84,7 @@ const GameFlowController = (() => {
         }
     };
     const checkForValidMove = (boardPosition) => {
-        let gameBoardState = getGameBoardState();
+        let gameBoardState = GameBoard.getGameBoardState();
         if (gameBoardState[boardPosition] === null) {
             return true;
         } else {
@@ -92,7 +92,7 @@ const GameFlowController = (() => {
         }
     };
     const checkForDraw = () => {
-        let gameBoardState = getGameBoardState();
+        let gameBoardState = GameBoard.getGameBoardState();
         for (boardPosition in gameBoardState) {
             if (gameBoardState[boardPosition] === null) {
                 return false;
@@ -102,21 +102,21 @@ const GameFlowController = (() => {
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
         if (checkForValidMove(currentPlayer, boardPosition)) {
-            updateGameBoardState(currentPlayer, boardPosition);
-            displayGameBoardState(currentPlayer, boardPosition)
+            GameBoard.updateGameBoardState(currentPlayer, boardPosition);
+            DOMController.displayGameBoardState(currentPlayer, boardPosition)
             if (checkForWinner(currentPlayer)) {
                 // display winner and play again button, prevent ability to click board
                 endGame();
-                toggleWinnerMessage("display", currentPlayer);
+                DOMController.toggleWinnerMessage("display", currentPlayer);
             } else if (checkForDraw()) {
                 endGame();
-                toggleDrawMessage("display");
+                DOMController.toggleDrawMessage("display");
             } else {
                 endTurn();
             }
         } else {
             // display error message function in DOM controller object
-            toggleInvalidMoveErrorMessage("display");
+            DOMController.toggleInvalidMoveErrorMessage("display");
         }
     };
     const startGame = () => {
