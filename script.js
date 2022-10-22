@@ -58,7 +58,7 @@ const GameFlowController = (() => {
         const playerOneNewName = DOMController.receivePlayerNameInput();
         const playerOneNewSign = DOMController.receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
-        console.log(playerOne)
+        // console.log(playerOne)
         addPlayersToArray(playerOne);
         return playerOne;
     }
@@ -118,7 +118,7 @@ const GameFlowController = (() => {
         console.log("test")
         console.log(currentPlayer)
         console.log(boardPosition)
-        if (checkForValidMove(currentPlayer, boardPosition)) {
+        if (checkForValidMove(boardPosition)) {
             GameBoard.updateGameBoardState(currentPlayer, boardPosition);
             DOMController.displayGameBoardState(currentPlayer, boardPosition)
             if (checkForWinner(currentPlayer)) {
@@ -136,6 +136,9 @@ const GameFlowController = (() => {
             DOMController.toggleInvalidMoveErrorMessage("display");
         }
     };
+    const setCurrentPlayer = (player) => {
+        currentPlayer = player;
+    }
     const startGame = () => {
         // connect to some DOM element button with click listener
         // form appears where you type in name and choose sign as player 1
@@ -158,7 +161,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer};
 })();
 
 
@@ -170,6 +173,7 @@ const DOMController = (() => {
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
     playerOneSubmitFormButton.addEventListener("click", () => {
         const playerOne = GameFlowController.createPlayerOne();
+        GameFlowController.setCurrentPlayer(playerOne);
         // hidePlayerForm();
     });
     playerTwoSubmitFormButton.addEventListener("click", () => {
@@ -179,9 +183,15 @@ const DOMController = (() => {
     const addPlayerMoveClickers = () => {
         const boardPositions = Array.from(document.querySelectorAll(".board-tile"));
         boardPositions.forEach((boardTile) => {
-            let currentPlayer = GameFlowController.getCurrentPlayer();
+            // let currentPlayer = GameFlowController.getCurrentPlayer();
             let boardPosition = boardTile.dataset.boardPosition;
-            boardTile.addEventListener("click", ((GameFlowController.receivePlayerGameInput.bind(this, currentPlayer, boardPosition))));
+            boardTile.addEventListener("click", ()=> {
+                console.log("test")
+                let currentPlayer = GameFlowController.getCurrentPlayer();
+                console.log(currentPlayer);
+                console.log(boardPosition);
+                GameFlowController.receivePlayerGameInput(currentPlayer, boardPosition);
+            });
         })
     }
     const receivePlayerNameInput = () => {
@@ -198,7 +208,7 @@ const DOMController = (() => {
         const playerSignXButton = document.querySelector(".sign-x-button");
         const playerSignOButton = document.querySelector(".sign-o-button");
         if (playerSignXButton.checked) {
-            console.log(playerSignXButton.getAttribute("id"))
+            // console.log(playerSignXButton.getAttribute("id"))
             return playerSignXButton.getAttribute("id");
         } else {
             return playerSignOButton.getAttribute("id");
