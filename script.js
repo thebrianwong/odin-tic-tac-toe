@@ -274,19 +274,25 @@ const DOMController = (() => {
             invalidMoveErrorMessage.style.visibility = "hidden";
         }
     }
-    const toggleWinnerMessage = (action, player) => {
+    const changeResultsMessageWinner = (player) => {
         const winningPlayerName = player.getName();
         resultsMessage.textContent = `Congratulations, ${winningPlayerName}! You Win!`;
+    }
+    const toggleWinnerMessage = (action, player) => {
         if (action === "display") {
+            changeResultsMessageWinner(player);
             endScreenElement.style.visibility = "visible";
         } else if (action === "hide") {
             endScreenElement.style.visibility = "hidden";
         }
     }
-    const toggleDrawMessage = (action) => {
+    const changeResultsMessageDraw = () => {
         resultsMessage.textContent = `It's A Draw! Better Luck Next Time!`;
+    }
+    const toggleDrawMessage = (action) => {
         console.log("draw!")
         if (action === "display") {
+            changeResultsMessageDraw();
             endScreenElement.style.visibility = "visible";
         } else if (action === "hide") {
             endScreenElement.style.visibility = "hidden";
