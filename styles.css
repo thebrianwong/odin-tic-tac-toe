@@ -94,13 +94,14 @@ form {
 }
 
 .sign-button-choice {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
     margin: 16px 0;
 }
 
 .sign-button {
-    height: 55px;
+    height: 50px;
     width: 50px;
     border: solid 2px darkgray;
     border-radius: 8px;
@@ -113,6 +114,16 @@ form {
 
 .sign-button:active {
     box-shadow: inset 0 3px 8px black;
+}
+
+.sign-x-button {
+    background-image: url(assets/X-sign.png);
+    background-size: 100%;
+}
+
+.sign-o-button {
+    background-image: url(assets/O-sign.png);
+    background-size: 100%;
 }
 
 .start-screen-container {
