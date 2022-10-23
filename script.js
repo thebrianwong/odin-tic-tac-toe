@@ -42,7 +42,7 @@ const GameFlowController = (() => {
     const getCurrentPlayer = () => {
         return currentPlayer;
     }
-    const addPlayersToArray = (player) => {
+    const addPlayerToArray = (player) => {
         playerObjectsArray.push(player)
     }
     const getPlayerArray = () => {
@@ -64,7 +64,7 @@ const GameFlowController = (() => {
         const playerOneNewSign = DOMController.receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
         // console.log(playerOne)
-        addPlayersToArray(playerOne);
+        addPlayerToArray(playerOne);
         return playerOne;
     }
     const createPlayerTwo = () => {
@@ -72,7 +72,7 @@ const GameFlowController = (() => {
         const playerTwoNewName = DOMController.receivePlayerNameInput();
         const playerTwoNewSign = assignOppositePlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
-        addPlayersToArray(playerTwo);
+        addPlayerToArray(playerTwo);
         return playerTwo;
     }
     const createPlayerComputer = () => {
@@ -80,7 +80,7 @@ const GameFlowController = (() => {
         const playerComputerNewName = "make a new function that returns a random name from an array of robot names like Bender, Skynet, etc.";
         const playerComputerNewSign = assignOppositePlayerSign(playerOne);
         const playerComputer = Player(playerComputerNewName, playerComputerNewSign);
-        addPlayersToArray(playerComputer);
+        addPlayerToArray(playerComputer);
         return playerComputer;
     }
     const checkForWinner = (player) => {
@@ -184,7 +184,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer};
 })();
 
 
