@@ -33,8 +33,12 @@ const Player = (name, sign) => {
 };
 
 const GameFlowController = (() => {
+    let gameMode = null;
     let currentPlayer = null;
     let playerObjectsArray = [];
+    const getGameMode = () => {
+        return gameMode;
+    }
     const getCurrentPlayer = () => {
         return currentPlayer;
     }
@@ -70,6 +74,14 @@ const GameFlowController = (() => {
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
         addPlayersToArray(playerTwo);
         return playerTwo;
+    }
+    const createPlayerComputer = () => {
+        const playerOne = getPlayerFromArray(0);
+        const playerComputerNewName = "make a new function that returns a random name from an array of robot names like Bender, Skynet, etc.";
+        const playerComputerNewSign = assignOppositePlayerSign(playerOne);
+        const playerComputer = Player(playerComputerNewName, playerComputerNewSign);
+        addPlayersToArray(playerComputer);
+        return playerComputer;
     }
     const checkForWinner = (player) => {
         const currentPlayerSign = player.getSign();
@@ -172,7 +184,7 @@ const GameFlowController = (() => {
         // call functions that are located in the DOM controller object
         return;
     };
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer};
 })();
 
 
@@ -185,6 +197,10 @@ const DOMController = (() => {
     playerOneSubmitFormButton.addEventListener("click", () => {
         const playerOne = GameFlowController.createPlayerOne();
         GameFlowController.setCurrentPlayer(playerOne);
+        const gameMode = GameFlowController.getGameMode();
+        if (gameMode === "single") {
+            const playerComputer = GameFlowController.createPlayerComputer();
+        }
         // hidePlayerForm();
     });
     playerTwoSubmitFormButton.addEventListener("click", () => {
