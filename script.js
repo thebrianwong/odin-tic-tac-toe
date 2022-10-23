@@ -47,7 +47,7 @@ const GameFlowController = (() => {
     const getPlayerFromArray = (index) => {
         return playerObjectsArray[index];
     }
-    const assignPlayerSign = (playerOne) => {
+    const assignOppositePlayerSign = (playerOne) => {
         const playerOneSign = playerOne.getSign();
         if (playerOneSign === "X") {
             return "O";
@@ -66,7 +66,7 @@ const GameFlowController = (() => {
     const createPlayerTwo = () => {
         const playerOne = getPlayerFromArray(0);
         const playerTwoNewName = DOMController.receivePlayerNameInput();
-        const playerTwoNewSign = assignPlayerSign(playerOne);
+        const playerTwoNewSign = assignOppositePlayerSign(playerOne);
         const playerTwo = Player(playerTwoNewName, playerTwoNewSign)
         addPlayersToArray(playerTwo);
         return playerTwo;
