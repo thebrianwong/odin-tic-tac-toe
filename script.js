@@ -219,12 +219,26 @@ const DOMController = (() => {
         if (gameMode === "single") {
             const playerComputer = GameFlowController.createPlayerComputer();
         }
-        // hidePlayerForm();
+        togglePlayerForm("hide");
     });
     playerTwoSubmitFormButton.addEventListener("click", () => {
         const playerTwo = GameFlowController.createPlayerTwo();
-        // hidePlayerForm();
+        togglePlayerForm("hide");
     });
+    const addSinglePlayerModeButtonClicker = () => {
+        const singlePlayerModeButton = document.querySelector(".single-player-mode-button");
+        singlePlayerModeButton.addEventListener("click", () => {
+            toggleStartScreen("hide");
+            GameFlowController.startGame();
+        })
+    }
+    const addtwoPlayerModeButtonClicker = () => {
+        const twoPlayerModeButton = document.querySelector(".two-player-mode-button");
+        twoPlayerModeButton.addEventListener("click", () => {
+            toggleStartScreen("hide");
+            GameFlowController.startGame();
+        })
+    }
     const addPlayerMoveClickers = () => {
         const boardPositions = Array.from(document.querySelectorAll(".board-tile"));
         boardPositions.forEach((boardTile) => {
@@ -344,7 +358,7 @@ const DOMController = (() => {
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
             toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
-            toggleStartScreen};
+            toggleStartScreen, addSinglePlayerModeButtonClicker, addtwoPlayerModeButtonClicker};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
@@ -362,3 +376,5 @@ const choosePlayerSign = () => {
 };
 
 DOMController.addPlayerMoveClickers();
+DOMController.addSinglePlayerModeButtonClicker();
+DOMController.addtwoPlayerModeButtonClicker();
