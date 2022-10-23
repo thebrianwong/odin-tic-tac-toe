@@ -61,10 +61,58 @@
     grid-area: tile8;
 }
 
+input,
+button {
+    appearance: none;
+}
+
+input[type="radio"]:hover,
+input[type="button"]:hover {
+    cursor: pointer;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
     align-items: space-around;
+    border: solid 2px black;
+    box-shadow: 1px 2px 10px 0px darkgrey;
+    padding: 16px;
+}
+
+.form-container h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 2px black;
+    box-shadow: 1px 2px 10px 0px darkgrey;
+    padding: 16px; */
+}
+
+.sign-button-choice {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+}
+
+.sign-button {
+    height: 55px;
+    width: 50px;
+    border: solid 2px darkgray;
+    border-radius: 8px;
+    background-color: lightgray;
+}
+
+.sign-button:hover {
+    filter: contrast(75%);
+}
+
+.sign-button:active {
+    box-shadow: inset 0 3px 8px black;
 }
 
 .start-screen-container {
