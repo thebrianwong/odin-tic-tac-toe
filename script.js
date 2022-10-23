@@ -34,6 +34,7 @@ const Player = (name, sign) => {
 
 const GameFlowController = (() => {
     let gameMode = null;
+    let gameInProgress = true;
     let currentPlayer = null;
     let playerObjectsArray = [];
     const getGameMode = () => {
@@ -135,24 +136,27 @@ const GameFlowController = (() => {
         console.log("test")
         console.log(currentPlayer)
         console.log(boardPosition)
-        if (checkForValidMove(boardPosition)) {
-            GameBoard.updateGameBoardState(boardPosition);
-            DOMController.displayGameBoardState(currentPlayer, boardPosition)
-            if (checkForWinner(currentPlayer)) {
-                // display winner and play again button, prevent ability to click board
-                endGame();
-                DOMController.toggleWinnerMessage("display", currentPlayer);
-            } else if (checkForDraw()) {
-                endGame();
-                DOMController.toggleDrawMessage("display");
+        if (gameInProgress) {
+            if (checkForValidMove(boardPosition)) {
+                GameBoard.updateGameBoardState(boardPosition);
+                DOMController.displayGameBoardState(currentPlayer, boardPosition)
+                DOMController.toggleInvalidMoveErrorMessage("hide");
+                if (checkForWinner(currentPlayer)) {
+                    // display winner and play again button, prevent ability to click board
+                    endGame();
+                    DOMController.toggleWinnerMessage("display", currentPlayer);
+                } else if (checkForDraw()) {
+                    endGame();
+                    DOMController.toggleDrawMessage("display");
+                } else {
+                    alternateCurrentPlayer();
+                    endTurn();
+                }
             } else {
-                alternateCurrentPlayer();
-                endTurn();
+                // display error message function in DOM controller object
+                console.log("test")
+                DOMController.toggleInvalidMoveErrorMessage("display");
             }
-        } else {
-            // display error message function in DOM controller object
-            console.log("test")
-            DOMController.toggleInvalidMoveErrorMessage("display");
         }
     };
     const setCurrentPlayer = (player) => {
@@ -185,7 +189,8 @@ const GameFlowController = (() => {
         }
     }
     const endGame = () => {
-        // call functions that are located in the DOM controller object
+        // call functions that are located in the DOM controller object to display results screen, win or draw
+        gameInProgress = false;
         return;
     };
     return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer};
