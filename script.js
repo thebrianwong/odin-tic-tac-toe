@@ -311,6 +311,14 @@ const DOMController = (() => {
             endScreenElement.style.visibility = "hidden";
         }
     }
+    const toggleStartScreen = (action) => {
+        const startScreenElement = document.querySelector(".start-screen-container");
+        if (action === "display") {
+            startScreenElement.style.visibility = "visible";
+        } else if (action === "hide") {
+            startScreenElement.style.visibility = "hidden";
+        }
+    }
     // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
     const displayGameBoardState = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
@@ -335,7 +343,8 @@ const DOMController = (() => {
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState};
+            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
+            toggleStartScreen};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
