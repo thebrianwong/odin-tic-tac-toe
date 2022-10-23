@@ -13,9 +13,9 @@ const GameBoard = (() => {
         gameBoardState[boardPosition] = currentPlayer.getSign();
     };
     const resetGameBoardState = () => {
-        gameBoardState.forEach((boardPosition) => {
-            boardPosition = null;
-        })
+        for (boardPosition in gameBoardState) {
+            gameBoardState[boardPosition] = null
+        }
     };
     // consider making update and reset functions private as player could mess with the game via console
         // perhaps call them in the getGameBoardState() function, with an if statement determining which, if any, needs to be called
@@ -193,7 +193,15 @@ const GameFlowController = (() => {
         gameInProgress = false;
         return;
     };
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer};
+    // need to tie this to the Play Again button in the end screen
+    const playAgain = () => {
+        // probably put all of this into a separate "reset" function, then call a new function that hides the end screen
+        GameBoard.resetGameBoardState();
+        DOMController.resetGameBoardState();
+        gameInProgress = true;
+        currentPlayer = getPlayerFromArray(0);
+    }
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain};
 })();
 
 
@@ -309,6 +317,12 @@ const DOMController = (() => {
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         boardPositionElement.textContent = currentPlayerSign;
     }
+    const resetGameBoardState = () => {
+        const boardPositionElements = Array.from(document.querySelectorAll(".board-tile"));
+        for (element in boardPositionElements) {
+            boardPositionElements[element].textContent = "";
+        }
+    }
     const testDisplayEntireGameBoardState = () => {
         const gameBoardState = GameBoard.getGameBoardState();
         for (let i = 0; i < gameBoardState.length; i++) {
@@ -321,7 +335,7 @@ const DOMController = (() => {
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers};
+            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
