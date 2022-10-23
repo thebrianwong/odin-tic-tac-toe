@@ -11,16 +11,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="game-board-container">
-            <div class="board-tile" data-board-position="0"></div>
-            <div class="board-tile" data-board-position="1"></div>
-            <div class="board-tile" data-board-position="2"></div>
-            <div class="board-tile" data-board-position="3"></div>
-            <div class="board-tile" data-board-position="4"></div>
-            <div class="board-tile" data-board-position="5"></div>
-            <div class="board-tile" data-board-position="6"></div>
-            <div class="board-tile" data-board-position="7"></div>
-            <div class="board-tile" data-board-position="8"></div>
+        <div class="start-screen-container">
+            <h1>Tic Tac Toe</h1>
+            <h4><span>"It isn't just a game, it's a way of life."</span> - Albert Einstein</h4>
+            <p>Connect 3 in a row to win! Play against the computer or a friend!</p>
+            <div class="start-screen-button-container">
+                <input type="button" value="Single Player" class="single-player-mode-button">
+                <input type="button" value="Two Player" class="two-player-mode-button">
+            </div>
         </div>
         <div class="form-container player-form">
             <p>Player One</p>
@@ -45,8 +43,37 @@
                 <input type="button" value="Submit" id="player-two-submit-form-button">
             </form>
         </div>
+        <div class="game-board-container">
+            <div class="board-tile" data-board-position="0"></div>
+            <div class="board-tile" data-board-position="1"></div>
+            <div class="board-tile" data-board-position="2"></div>
+            <div class="board-tile" data-board-position="3"></div>
+            <div class="board-tile" data-board-position="4"></div>
+            <div class="board-tile" data-board-position="5"></div>
+            <div class="board-tile" data-board-position="6"></div>
+            <div class="board-tile" data-board-position="7"></div>
+            <div class="board-tile" data-board-position="8"></div>
+        </div>
+        <!-- <div class="form-container player-form">
+            <p>Player One</p>
+            <form action="">
+                <fieldset>
+                    <legend>Enter Your Name:</legend>
+                    <input type="text" name="player-name" id="player-name-input" class="player-name-input">
+                </fieldset>
+                <fieldset class="sign-button-choice">
+                    <legend>Pick Your Sign:</legend>
+                    <input type="radio" name="sign" id="X" class="sign-x-button sign-button">
+                    <input type="radio" name="sign" id="O" class="sign-o-button sign-button">
+                    <label for="X">X Sign</label>
+                    <label for="O">O Sign</label>
+                </fieldset>
+                <input type="button" value="Submit" id="player-one-submit-form-button">
+                <input type="button" value="Submit" id="player-two-submit-form-button">
+            </form>
+        </div> -->
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <div class="start-screen-container">
             <h1>Tic Tac Toe</h1>
             <h4><span>"It isn't just a game, it's a way of life."</span> - Albert Einstein</h4>
@@ -67,6 +94,6 @@
                 <input type="button" value="Exit to Main Menu">
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

@@ -210,21 +210,40 @@ const DOMController = (() => {
     // const playerForm = document.querySelector(".player-form");
     const endScreenElement = document.querySelector(".end-screen-container");
     const resultsMessage = document.querySelector(".results-message");
-    const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
-    const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
-    playerOneSubmitFormButton.addEventListener("click", () => {
-        const playerOne = GameFlowController.createPlayerOne();
-        GameFlowController.setCurrentPlayer(playerOne);
-        const gameMode = GameFlowController.getGameMode();
-        if (gameMode === "single") {
-            const playerComputer = GameFlowController.createPlayerComputer();
-        }
-        togglePlayerForm("hide");
-    });
-    playerTwoSubmitFormButton.addEventListener("click", () => {
-        const playerTwo = GameFlowController.createPlayerTwo();
-        togglePlayerForm("hide");
-    });
+    // const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
+    // const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
+    // playerOneSubmitFormButton.addEventListener("click", () => {
+    //     const playerOne = GameFlowController.createPlayerOne();
+    //     GameFlowController.setCurrentPlayer(playerOne);
+    //     const gameMode = GameFlowController.getGameMode();
+    //     if (gameMode === "single") {
+    //         const playerComputer = GameFlowController.createPlayerComputer();
+    //     }
+    //     togglePlayerForm("hide");
+    // });
+    // playerTwoSubmitFormButton.addEventListener("click", () => {
+    //     const playerTwo = GameFlowController.createPlayerTwo();
+    //     togglePlayerForm("hide");
+    // });
+    const addPlayerOneSubmitFormButtonClicker = () => {
+        const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
+        playerOneSubmitFormButton.addEventListener("click", () => {
+            const playerOne = GameFlowController.createPlayerOne();
+            GameFlowController.setCurrentPlayer(playerOne);
+            const gameMode = GameFlowController.getGameMode();
+            if (gameMode === "single") {
+                const playerComputer = GameFlowController.createPlayerComputer();
+            }
+            togglePlayerForm("hide");
+        });
+    }
+    const addPlayerTwoSubmitFormButtonClicker = () => {
+        const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
+        playerTwoSubmitFormButton.addEventListener("click", () => {
+            const playerTwo = GameFlowController.createPlayerTwo();
+            togglePlayerForm("hide");
+        });
+    }
     const addSinglePlayerModeButtonClicker = () => {
         const singlePlayerModeButton = document.querySelector(".single-player-mode-button");
         singlePlayerModeButton.addEventListener("click", () => {
@@ -358,7 +377,8 @@ const DOMController = (() => {
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
             toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
-            toggleStartScreen, addSinglePlayerModeButtonClicker, addtwoPlayerModeButtonClicker};
+            toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
+            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
@@ -377,4 +397,6 @@ const choosePlayerSign = () => {
 
 DOMController.addPlayerMoveClickers();
 DOMController.addSinglePlayerModeButtonClicker();
-DOMController.addtwoPlayerModeButtonClicker();
+DOMController.addTwoPlayerModeButtonClicker();
+DOMController.addPlayerOneSubmitFormButtonClicker();
+DOMController.addPlayerTwoSubmitFormButtonClicker();
