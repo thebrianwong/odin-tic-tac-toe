@@ -80,7 +80,9 @@ input[type="button"]:hover {
     padding: 16px;
 }
 
-.form-container h3 {
+.form-container p {
+    font-size: x-large;
+    font-weight: 600;
     text-align: center;
     margin-top: 0;
 }
