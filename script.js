@@ -94,21 +94,25 @@ const GameFlowController = (() => {
             } else if (gameBoardState[4] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
                 return true;
             }
-        } else if (gameBoardState[1] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[7] === currentPlayerSign) {
+        };
+        if (gameBoardState[1] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[7] === currentPlayerSign) {
             return true;
-        } else if (gameBoardState[2] === currentPlayerSign) {
+        };
+        if (gameBoardState[2] === currentPlayerSign) {
             if (gameBoardState[5] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
                 return true;
             } else if (gameBoardState[4] === currentPlayerSign && gameBoardState[6] === currentPlayerSign) {
                 return true;
             }
-        } else if (gameBoardState[3] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[5] === currentPlayerSign) {
+        };
+        if (gameBoardState[3] === currentPlayerSign && gameBoardState[4] === currentPlayerSign && gameBoardState[5] === currentPlayerSign) {
             return true;
-        } else if (gameBoardState[6] === currentPlayerSign && gameBoardState[7] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
+        };
+        if (gameBoardState[6] === currentPlayerSign && gameBoardState[7] === currentPlayerSign && gameBoardState[8] === currentPlayerSign) {
             return true;
         } else {
             return false;
-        }
+        };
     };
     const checkForValidMove = (boardPosition) => {
         let gameBoardState = GameBoard.getGameBoardState();
@@ -281,6 +285,7 @@ const DOMController = (() => {
     }
     const toggleDrawMessage = (action) => {
         resultsMessage.textContent = `It's A Draw! Better Luck Next Time!`;
+        console.log("draw!")
         if (action === "display") {
             endScreenElement.style.visibility = "visible";
         } else if (action === "hide") {
