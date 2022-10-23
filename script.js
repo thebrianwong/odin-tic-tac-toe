@@ -191,6 +191,7 @@ const GameFlowController = (() => {
 const DOMController = (() => {
     // uncomment if toggle function is removed
     // const playerForm = document.querySelector(".player-form");
+    const endScreenElement = document.querySelector(".end-screen-container");
     const resultsMessage = document.querySelector(".results-message");
     const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
     const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
@@ -273,17 +274,17 @@ const DOMController = (() => {
         const winningPlayerName = player.getName();
         resultsMessage.textContent = `Congratulations, ${winningPlayerName}! You Win!`;
         if (action === "display") {
-            resultsMessage.style.visibility = "visible";
+            endScreenElement.style.visibility = "visible";
         } else if (action === "hide") {
-            resultsMessage.style.visibility = "hidden";
+            endScreenElement.style.visibility = "hidden";
         }
     }
     const toggleDrawMessage = (action) => {
         resultsMessage.textContent = `It's A Draw! Better Luck Next Time!`;
         if (action === "display") {
-            resultsMessage.style.visibility = "visible";
+            endScreenElement.style.visibility = "visible";
         } else if (action === "hide") {
-            resultsMessage.style.visibility = "hidden";
+            endScreenElement.style.visibility = "hidden";
         }
     }
     // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
