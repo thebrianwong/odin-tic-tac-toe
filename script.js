@@ -269,7 +269,7 @@ const DOMController = (() => {
         // console.log("toggle invalid")
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
         if (action === "display") {
-            // invalidMoveErrorMessage.style.visibility = "visible";
+            invalidMoveErrorMessage.style.visibility = "visible";
         } else if (action === "hide") {
             invalidMoveErrorMessage.style.visibility = "hidden";
         }
