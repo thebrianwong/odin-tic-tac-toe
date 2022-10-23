@@ -135,6 +135,7 @@ const GameFlowController = (() => {
             }
         } else {
             // display error message function in DOM controller object
+            console.log("test")
             DOMController.toggleInvalidMoveErrorMessage("display");
         }
     };
@@ -196,7 +197,7 @@ const DOMController = (() => {
             // let currentPlayer = GameFlowController.getCurrentPlayer();
             let boardPosition = boardTile.dataset.boardPosition;
             boardTile.addEventListener("click", ()=> {
-                console.log("test")
+                // console.log("test")
                 let currentPlayer = GameFlowController.getCurrentPlayer();
                 console.log(currentPlayer);
                 console.log(boardPosition);
@@ -244,6 +245,7 @@ const DOMController = (() => {
         }
     };
     const toggleInvalidMoveErrorMessage = (action) => {
+        // console.log("toggle invalid")
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
         if (action === "display") {
             // invalidMoveErrorMessage.style.visibility = "visible";
