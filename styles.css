@@ -160,6 +160,7 @@ form {
 .invalid-move-error-message {
     border: solid 3px red;
     background-color: rgb(255, 151, 151);
+    box-shadow: 0 0 10px black;
     color: white;
     font-size: x-large;
     font-weight: 600;
