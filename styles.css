@@ -245,3 +245,57 @@ form {
 .default-display-none {
     display: none;
 }
+
+@keyframes game-board-display-animation {
+    0% {
+        scale: 0%;
+        transform: rotate(0);
+    }
+    10% {
+        scale: 10%;
+        transform: rotate(+0.5turn);
+    }
+    20% {
+        scale: 20%;
+        transform: rotate(+1.0turn);
+    }
+    30% {
+        scale: 30%;
+        transform: rotate(+1.5turn);
+    }
+    40% {
+        scale: 40%;
+        transform: rotate(+2.0turn);
+    }
+    50% {
+        scale: 50%;
+        transform: rotate(+2.5turn);
+    }
+    60% {
+        scale: 60%;
+        transform: rotate(+3.0turn);
+    }
+    70% {
+        scale: 70%;
+        transform: rotate(+3.65turn);
+    }
+    80% {
+        scale: 80%;
+        transform: rotate(+3.75turn);
+    }
+    90% {
+        scale: 90%;
+        transform: rotate(+3.95turn);
+    }
+    100% {
+        scale: 100%;
+        transform: rotate(+4.0turn);
+    }
+}
+
+.game-board-display-animation {
+    animation-name: game-board-display-animation;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
