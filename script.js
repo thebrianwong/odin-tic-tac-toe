@@ -248,14 +248,16 @@ const DOMController = (() => {
         const singlePlayerModeButton = document.querySelector(".single-player-mode-button");
         singlePlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
-            GameFlowController.startGame();
+            togglePlayerForm("display");
+            // GameFlowController.startGame();
         })
     }
     const addtwoPlayerModeButtonClicker = () => {
         const twoPlayerModeButton = document.querySelector(".two-player-mode-button");
         twoPlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
-            GameFlowController.startGame();
+            setTimeout(togglePlayerForm.bind(this, "display"), 550)
+            // GameFlowController.startGame();
         })
     }
     const addPlayerMoveClickers = () => {
@@ -304,6 +306,7 @@ const DOMController = (() => {
     const togglePlayerForm = (action) => {
         const playerForm = document.querySelector(".player-form");
         if (action === "display") {
+            playerForm.removeAttribute("id");
             playerForm.classList.remove("form-hide-animation");
             playerForm.classList.add("form-display-animation");
         } else if (action === "hide") {
@@ -347,9 +350,13 @@ const DOMController = (() => {
     const toggleStartScreen = (action) => {
         const startScreenElement = document.querySelector(".start-screen-container");
         if (action === "display") {
-            startScreenElement.style.visibility = "visible";
+            // startScreenElement.style.visibility = "visible";
+            startScreenElement.classList.remove("start-screen-hide-animation");
+            startScreenElement.classList.add("start-screen-display-animation");
         } else if (action === "hide") {
-            startScreenElement.style.visibility = "hidden";
+            // startScreenElement.style.visibility = "hidden";
+            startScreenElement.classList.remove("start-screen-display-animation");
+            startScreenElement.classList.add("start-screen-hide-animation");
         }
     }
     // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
