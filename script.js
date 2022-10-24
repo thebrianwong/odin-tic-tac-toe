@@ -251,9 +251,13 @@ const DOMController = (() => {
         const formHeader = document.querySelector(".form-header");
         const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
         const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
+        const playerOne = GameFlowController.getPlayerFromArray(0);
+        const playerOneSign = playerOne.getSign();
+        const signButtonToDisable = document.querySelector(`#${playerOneSign}`);
         formHeader.textContent = "Player Two";
         playerOneSubmitFormButton.classList.add("default-display-none");
         playerTwoSubmitFormButton.classList.remove("default-display-none");
+        signButtonToDisable.setAttribute("disabled", "");
     }
     const resetForm = () => {
         const playerNameInputElement = document.querySelector(".player-name-input");
