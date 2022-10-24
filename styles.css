@@ -83,7 +83,6 @@ input[type="button"]:active {
     border: solid 2px black;
     box-shadow: 1px 2px 10px darkgray;
     padding: 16px;
-    transform: scale(0);
 }
 
 .form-container p {
@@ -201,6 +200,9 @@ form {
 }
 
 @keyframes display-animation {
+    from {
+        transform: scale(0);
+    }
     to {
         transform: scale(1);
         /* visibility: visible; */
