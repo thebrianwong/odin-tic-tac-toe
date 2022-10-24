@@ -83,6 +83,7 @@ input[type="button"]:active {
     border: solid 2px black;
     box-shadow: 1px 2px 10px darkgray;
     padding: 16px;
+    transform: scale(0);
 }
 
 .form-container p {
@@ -189,4 +190,43 @@ form {
 .end-screen-button-container {
     display: flex;
     gap: 16px;
+}
+
+@keyframes hide-animation {
+    to {
+        transform: scale(0);
+        /* visibility: hidden; */
+        display: none;
+    }
+}
+
+@keyframes display-animation {
+    to {
+        transform: scale(1);
+        /* visibility: visible; */
+        display: flex;
+    }
+}
+
+.start-screen-hide-animation,
+.form-hide-animation {
+    animation-name: hide-animation;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.start-screen-display-animation,
+.form-display-animation {
+    animation-name: display-animation;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.start-screen-hide-animation *,
+.form-hide-animation {
+    display: none;
+}
+
+#default-display-none {
+    display: none;
 }
