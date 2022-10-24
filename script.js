@@ -235,6 +235,9 @@ const DOMController = (() => {
                 const playerComputer = GameFlowController.createPlayerComputer();
             }
             togglePlayerForm("hide");
+            setTimeout(resetForm, 500)
+            setTimeout(changeFormToPlayerTwo, 550);
+            setTimeout(togglePlayerForm.bind(this, "display"), 550);
         });
     }
     const addPlayerTwoSubmitFormButtonClicker = () => {
@@ -243,6 +246,22 @@ const DOMController = (() => {
             const playerTwo = GameFlowController.createPlayerTwo();
             togglePlayerForm("hide");
         });
+    }
+    const changeFormToPlayerTwo = () => {
+        const formHeader = document.querySelector(".form-header");
+        const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
+        const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
+        formHeader.textContent = "Player Two";
+        playerOneSubmitFormButton.classList.add("default-display-none");
+        playerTwoSubmitFormButton.classList.remove("default-display-none");
+    }
+    const resetForm = () => {
+        const playerNameInputElement = document.querySelector(".player-name-input");
+        const formSignButtons = Array.from(document.querySelectorAll(".sign-button"));
+        playerNameInputElement.value = "";
+        for (button in formSignButtons) {
+            formSignButtons[button].checked = false;
+        }
     }
     const addSinglePlayerModeButtonClicker = () => {
         const singlePlayerModeButton = document.querySelector(".single-player-mode-button");
@@ -306,7 +325,7 @@ const DOMController = (() => {
     const togglePlayerForm = (action) => {
         const playerForm = document.querySelector(".player-form");
         if (action === "display") {
-            playerForm.removeAttribute("id");
+            playerForm.classList.remove("default-display-none")
             playerForm.classList.remove("form-hide-animation");
             playerForm.classList.add("form-display-animation");
         } else if (action === "hide") {
