@@ -354,9 +354,12 @@ const DOMController = (() => {
             startScreenElement.classList.remove("start-screen-hide-animation");
             startScreenElement.classList.add("start-screen-display-animation");
         } else if (action === "hide") {
-            // startScreenElement.style.visibility = "hidden";
+            // startScreenElement.style.display = "none";
             startScreenElement.classList.remove("start-screen-display-animation");
             startScreenElement.classList.add("start-screen-hide-animation");
+            setTimeout(function () {
+                startScreenElement.style.display = "none";
+            }, 500);
         }
     }
     // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)

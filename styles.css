@@ -223,8 +223,8 @@ form {
 }
 
 .start-screen-hide-animation *,
-.form-hide-animation {
-    display: none;
+.form-hide-animation * {
+    dispslay: none;
 }
 
 #default-display-none {
