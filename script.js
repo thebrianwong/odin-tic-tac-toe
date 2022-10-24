@@ -248,7 +248,7 @@ const DOMController = (() => {
         const singlePlayerModeButton = document.querySelector(".single-player-mode-button");
         singlePlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
-            togglePlayerForm("display");
+            setTimeout(togglePlayerForm.bind(this, "display"), 550)
             // GameFlowController.startGame();
         })
     }
