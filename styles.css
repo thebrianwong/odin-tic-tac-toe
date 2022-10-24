@@ -112,16 +112,29 @@ form {
     width: 50px;
     border: solid 2px darkgray;
     border-radius: 8px;
-    background-color: lightgray;
 }
 
 .sign-button:hover {
-    filter: contrast(75%);
+    border-width: 3px;
 }
 
 .sign-button:active,
 .sign-button:checked {
     box-shadow: inset 0 3px 8px black;
+    border-width: 3px;
+}
+
+.sign-button:disabled {
+    background-color: red;
+}
+
+.sign-button:disabled:hover {
+    cursor: default;
+    border-width: 2px;
+}
+
+.sign-button:disabled:active {
+    box-shadow: none;
 }
 
 .sign-x-button {
