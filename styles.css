@@ -1,8 +1,9 @@
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 100vh;
 }
 
 .game-board-container {
@@ -182,6 +183,12 @@ form {
                 1px 0 black,
                 -1px 0 black;
     padding: 16px;
+
+    position: absolute;
+    top: 5vh;
+    text-align: center;
+    left: calc((100% / 2) - (351px / 2));
+    width: 313px;
 }
 
 .end-screen-container {
