@@ -362,9 +362,10 @@ const DOMController = (() => {
     const toggleWinnerMessage = (action, player) => {
         if (action === "display") {
             changeResultsMessageWinner(player);
-            endScreenElement.style.visibility = "visible";
+            endScreenElement.classList.remove("default-display-none")
+            endScreenElement.style.display = "flex";
         } else if (action === "hide") {
-            endScreenElement.style.visibility = "hidden";
+            endScreenElement.style.display = "none";
         }
     }
     const changeResultsMessageDraw = () => {
