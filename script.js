@@ -197,7 +197,7 @@ const GameFlowController = (() => {
     const playAgain = () => {
         // probably put all of this into a separate "reset" function, then call a new function that hides the end screen
         GameBoard.resetGameBoardState();
-        DOMController.resetGameBoardState();
+        DOMController.resetGameBoardElement();
         gameInProgress = true;
         currentPlayer = getPlayerFromArray(0);
     }
@@ -391,7 +391,7 @@ const DOMController = (() => {
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         boardPositionElement.textContent = currentPlayerSign;
     }
-    const resetGameBoardState = () => {
+    const resetGameBoardElement = () => {
         const boardPositionElements = Array.from(document.querySelectorAll(".board-tile"));
         for (element in boardPositionElements) {
             boardPositionElements[element].textContent = "";
@@ -409,7 +409,7 @@ const DOMController = (() => {
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
+            toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardElement,
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
             addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker};
 })();
