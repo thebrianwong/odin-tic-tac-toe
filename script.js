@@ -369,15 +369,16 @@ const DOMController = (() => {
         }
     }
     const changeResultsMessageDraw = () => {
-        resultsMessage.textContent = `It's A Draw! Better Luck Next Time!`;
+        resultsMessage.textContent = `It's A Draw!\nBetter Luck Next Time!`;
     }
     const toggleDrawMessage = (action) => {
         console.log("draw!")
         if (action === "display") {
             changeResultsMessageDraw();
-            endScreenElement.style.visibility = "visible";
+            endScreenElement.classList.remove("default-display-none")
+            endScreenElement.style.display = "flex";
         } else if (action === "hide") {
-            endScreenElement.style.visibility = "hidden";
+            endScreenElement.style.display = "none";
         }
     }
     const toggleStartScreen = (action) => {

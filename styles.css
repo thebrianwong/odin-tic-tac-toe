@@ -212,6 +212,9 @@ form {
     font-size: x-large;
     font-weight: 600;
     margin-top: 0;
+    width: fit-content;
+    text-align: center;
+    white-space: pre;
 }
 
 .end-screen-button-container {
