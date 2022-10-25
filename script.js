@@ -139,7 +139,7 @@ const GameFlowController = (() => {
         if (gameInProgress) {
             if (checkForValidMove(boardPosition)) {
                 GameBoard.updateGameBoardState(boardPosition);
-                DOMController.displayGameBoardState(currentPlayer, boardPosition)
+                DOMController.updateGameBoardState(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
                 if (checkForWinner(currentPlayer)) {
                     // display winner and play again button, prevent ability to click board
@@ -386,7 +386,7 @@ const DOMController = (() => {
         }
     }
     // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
-    const displayGameBoardState = (currentPlayer, boardPosition) => {
+    const updateGameBoardElement = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         boardPositionElement.textContent = currentPlayerSign;
@@ -409,7 +409,7 @@ const DOMController = (() => {
         }
     }
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, displayGameBoardState, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
+            toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardState,
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
             addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker};
 })();
