@@ -357,7 +357,7 @@ const DOMController = (() => {
     }
     const changeResultsMessageWinner = (player) => {
         const winningPlayerName = player.getName();
-        resultsMessage.textContent = `Congratulations, ${winningPlayerName}! You Win!`;
+        resultsMessage.textContent = `Congratulations, ${winningPlayerName}!\nYou Win!`;
     }
     const toggleWinnerMessage = (action, player) => {
         if (action === "display") {
