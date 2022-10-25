@@ -139,7 +139,7 @@ const GameFlowController = (() => {
         if (gameInProgress) {
             if (checkForValidMove(boardPosition)) {
                 GameBoard.updateGameBoardState(boardPosition);
-                DOMController.updateGameBoardState(currentPlayer, boardPosition)
+                DOMController.updateGameBoardElement(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
                 if (checkForWinner(currentPlayer)) {
                     // display winner and play again button, prevent ability to click board
@@ -245,6 +245,7 @@ const DOMController = (() => {
         playerTwoSubmitFormButton.addEventListener("click", () => {
             const playerTwo = GameFlowController.createPlayerTwo();
             togglePlayerForm("hide");
+            setTimeout(displayGameBoardElement, 550);
         });
     }
     const changeFormToPlayerTwo = () => {
@@ -335,7 +336,15 @@ const DOMController = (() => {
         } else if (action === "hide") {
             playerForm.classList.remove("form-display-animation");
             playerForm.classList.add("form-hide-animation");
-        }
+            if (GameFlowController.getPlayerArray().length == 2) {
+                setTimeout(function() {
+                    playerForm.style.display = "none";
+                }, 500);
+            }
+            // setTimeout(function() {
+            //     playerForm.style.display = "none";
+            // }, 500);
+        };
     };
     const toggleInvalidMoveErrorMessage = (action) => {
         // console.log("toggle invalid")
@@ -396,6 +405,11 @@ const DOMController = (() => {
         for (element in boardPositionElements) {
             boardPositionElements[element].textContent = "";
         }
+    }
+    const displayGameBoardElement = () => {
+        const gameBoardElement = document.querySelector(".game-board-container");
+        gameBoardElement.classList.remove("default-display-none");
+        gameBoardElement.classList.add("game-board-display-animation");
     }
     const testDisplayEntireGameBoardState = () => {
         const gameBoardState = GameBoard.getGameBoardState();
