@@ -213,15 +213,21 @@ form {
 .results-message {
     font-size: x-large;
     font-weight: 600;
-    margin-top: 0;
+    margin: 0 0 16px 0;
     width: fit-content;
     text-align: center;
     white-space: pre;
 }
 
+.computer-message {
+    margin: 16px 0;
+}
+
 .end-screen-button-container {
     display: flex;
-    gap: 16px;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 16px 0 0;
 }
 
 @keyframes hide-animation {
