@@ -126,7 +126,9 @@ form {
 }
 
 .sign-button:disabled {
-    background-color: red;
+    filter: contrast(0.45);
+    background-color: rgb(200,200,200);
+    opacity: 0.5;;
 }
 
 .sign-button:disabled:hover {
