@@ -196,12 +196,24 @@ const GameFlowController = (() => {
     // need to tie this to the Play Again button in the end screen
     const playAgain = () => {
         // probably put all of this into a separate "reset" function, then call a new function that hides the end screen
+        resetGameState();
+    }
+    const exitToMainMenu = () => {
+        if (!gameInProgress) {
+            resetGameState();
+            resetPlayerArray();
+        }
+    }
+    const resetGameState = () => {
         GameBoard.resetGameBoardState();
         DOMController.resetGameBoardElement();
         gameInProgress = true;
         currentPlayer = getPlayerFromArray(0);
     }
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain};
+    const resetPlayerArray = () => {
+        playerObjectsArray = [];
+    }
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu};
 })();
 
 
@@ -245,7 +257,7 @@ const DOMController = (() => {
         playerTwoSubmitFormButton.addEventListener("click", () => {
             const playerTwo = GameFlowController.createPlayerTwo();
             togglePlayerForm("hide");
-            setTimeout(displayGameBoardElement, 550);
+            setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
         });
     }
     const changeFormToPlayerTwo = () => {
@@ -303,6 +315,15 @@ const DOMController = (() => {
         playAgainButton.addEventListener("click", () => {
             GameFlowController.playAgain();
             toggleDrawMessage("hide");
+        })
+    }
+    const addMainMenuButtonClicker = () => {
+        const mainMenuButton = document.querySelector(".main-menu-button");
+        mainMenuButton.addEventListener("click", () => {
+            GameFlowController.exitToMainMenu();
+            toggleDrawMessage("hide");
+            toggleGameBoardElement("hide");
+            setTimeout(toggleStartScreen.bind(this, "display"), 550);
         })
     }
     const receivePlayerNameInput = () => {
@@ -394,6 +415,7 @@ const DOMController = (() => {
             // startScreenElement.style.visibility = "visible";
             startScreenElement.classList.remove("start-screen-hide-animation");
             startScreenElement.classList.add("start-screen-display-animation");
+            startScreenElement.style.display = "flex";
         } else if (action === "hide") {
             // startScreenElement.style.display = "none";
             startScreenElement.classList.remove("start-screen-display-animation");
@@ -415,10 +437,15 @@ const DOMController = (() => {
             boardPositionElements[element].textContent = "";
         }
     }
-    const displayGameBoardElement = () => {
+    const toggleGameBoardElement = (action) => {
         const gameBoardElement = document.querySelector(".game-board-container");
-        gameBoardElement.classList.remove("default-display-none");
-        gameBoardElement.classList.add("game-board-display-animation");
+        if (action === "display") {
+            gameBoardElement.classList.remove("default-display-none");
+            gameBoardElement.classList.add("game-board-display-animation");
+        } else if (action === "hide") {
+            gameBoardElement.classList.add("default-display-none");
+            gameBoardElement.classList.remove("game-board-display-animation");
+        }
     }
     const testDisplayEntireGameBoardState = () => {
         const gameBoardState = GameBoard.getGameBoardState();
@@ -434,7 +461,7 @@ const DOMController = (() => {
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
             toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardElement,
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
-            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker};
+            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker, addMainMenuButtonClicker};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
@@ -457,3 +484,4 @@ DOMController.addTwoPlayerModeButtonClicker();
 DOMController.addPlayerOneSubmitFormButtonClicker();
 DOMController.addPlayerTwoSubmitFormButtonClicker();
 DOMController.addPlayAgainButtonClicker();
+DOMController.addMainMenuButtonClicker();
