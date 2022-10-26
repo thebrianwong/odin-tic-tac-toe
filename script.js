@@ -298,6 +298,13 @@ const DOMController = (() => {
             });
         })
     }
+    const addPlayAgainButtonClicker = () => {
+        const playAgainButton = document.querySelector(".play-again-button");
+        playAgainButton.addEventListener("click", () => {
+            GameFlowController.playAgain();
+            toggleDrawMessage("hide");
+        })
+    }
     const receivePlayerNameInput = () => {
         // look at DOM element value (probably a form), return value
         // pass the 2 variables to Player factory function ex. const player1 = Player()
@@ -427,7 +434,7 @@ const DOMController = (() => {
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
             toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardElement,
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
-            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker};
+            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
@@ -449,3 +456,4 @@ DOMController.addSinglePlayerModeButtonClicker();
 DOMController.addTwoPlayerModeButtonClicker();
 DOMController.addPlayerOneSubmitFormButtonClicker();
 DOMController.addPlayerTwoSubmitFormButtonClicker();
+DOMController.addPlayAgainButtonClicker();
