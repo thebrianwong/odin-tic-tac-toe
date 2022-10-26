@@ -248,7 +248,7 @@ const DOMController = (() => {
             }
             togglePlayerForm("hide");
             setTimeout(resetForm, 500)
-            setTimeout(changeFormToPlayerTwo, 550);
+            setTimeout(alternatePlayerForm.bind(this, "two"), 550);
             setTimeout(togglePlayerForm.bind(this, "display"), 550);
         });
     }
@@ -257,20 +257,32 @@ const DOMController = (() => {
         playerTwoSubmitFormButton.addEventListener("click", () => {
             const playerTwo = GameFlowController.createPlayerTwo();
             togglePlayerForm("hide");
+            setTimeout(resetForm, 500);
+            setTimeout(alternatePlayerForm.bind(this,"one"), 550);
             setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
         });
     }
-    const changeFormToPlayerTwo = () => {
+    const alternatePlayerForm = (newPlayer) => {
         const formHeader = document.querySelector(".form-header");
         const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
         const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
-        const playerOne = GameFlowController.getPlayerFromArray(0);
-        const playerOneSign = playerOne.getSign();
-        const signButtonToDisable = document.querySelector(`#${playerOneSign}`);
-        formHeader.textContent = "Player Two";
-        playerOneSubmitFormButton.classList.add("default-display-none");
-        playerTwoSubmitFormButton.classList.remove("default-display-none");
-        signButtonToDisable.setAttribute("disabled", "");
+        if (newPlayer === "one") {
+            const signButtons = Array.from(document.querySelectorAll(".sign-button"));
+            formHeader.textContent = "Player One";
+            playerOneSubmitFormButton.classList.remove("default-display-none");
+            playerTwoSubmitFormButton.classList.add("default-display-none");
+            for (button in signButtons) {
+                signButtons[button].removeAttribute("disabled");
+            }
+        } else if (newPlayer === "two") {
+            const playerOne = GameFlowController.getPlayerFromArray(0);
+            const playerOneSign = playerOne.getSign();
+            const signButtonToDisable = document.querySelector(`#${playerOneSign}`);
+            formHeader.textContent = "Player Two";
+            playerOneSubmitFormButton.classList.add("default-display-none");
+            playerTwoSubmitFormButton.classList.remove("default-display-none");
+            signButtonToDisable.setAttribute("disabled", "");
+        }
     }
     const resetForm = () => {
         const playerNameInputElement = document.querySelector(".player-name-input");
@@ -366,7 +378,8 @@ const DOMController = (() => {
             playerForm.classList.add("form-hide-animation");
             if (GameFlowController.getPlayerArray().length == 2) {
                 setTimeout(function() {
-                    playerForm.style.display = "none";
+                    // playerForm.style.display = "none";
+                    playerForm.classList.add("default-display-none")
                 }, 500);
             }
             // setTimeout(function() {
