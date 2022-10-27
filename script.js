@@ -248,11 +248,17 @@ const DOMController = (() => {
             const gameMode = GameFlowController.getGameMode();
             if (gameMode === "single") {
                 const playerComputer = GameFlowController.createPlayerComputer();
+                // togglePlayerForm("hide");
+                // setTimeout(resetForm, 500)
+                setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
+            } else if (gameMode === "two") {
+                // togglePlayerForm("hide");
+                // setTimeout(resetForm, 500)
+                setTimeout(alternatePlayerForm.bind(this, "two"), 550);
+                setTimeout(togglePlayerForm.bind(this, "display"), 550);
             }
             togglePlayerForm("hide");
             setTimeout(resetForm, 500)
-            setTimeout(alternatePlayerForm.bind(this, "two"), 550);
-            setTimeout(togglePlayerForm.bind(this, "display"), 550);
         });
     }
     const addPlayerTwoSubmitFormButtonClicker = () => {
