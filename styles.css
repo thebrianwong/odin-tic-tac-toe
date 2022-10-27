@@ -222,6 +222,8 @@ form {
 
 .computer-message {
     margin: 16px 0;
+    text-align: center;
+    white-space: pre;
 }
 
 .end-screen-button-container {
