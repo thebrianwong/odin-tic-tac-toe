@@ -412,9 +412,26 @@ const DOMController = (() => {
         if (action === "display") {
             computerMessage.classList.remove("default-display-none");
             computerMessage.style.display = "block";
-            computerMessage.textContent = "HAHA, YOU HAVE LOST, PUNY HUMAN!";
         } else if (action === "hide") {
             computerMessage.style.display = "none";
+        }
+    }
+    const changeResultsMessageSinglePlayer = (player) => {
+        const humanPlayer = GameFlowController.getPlayerFromArray(0);
+        const humanPlayerName = humanPlayer.getName();
+        if (player === humanPlayer) {
+            resultsMessage.textContent = `Nice Job, ${humanPlayerName}!\nYou Beat the Computer!`;
+        } else {
+            resultsMessage.textContent = "HAHA,\nYOU HAVE LOST,\nPUNY HUMAN";
+        }
+    }
+    const changeComputerMessage = (player) => {
+        const humanPlayer = GameFlowController.getPlayerFromArray(0);
+        const computerMessage = document.querySelector(".computer-message");
+        if (player === humanPlayer) {
+            computerMessage.textContent = "You must be the next Einstein!";
+        } else {
+            computerMessage.textContent = "PLAY AGAIN SO I MAY\nCRUSH YOU ONCE MORE";
         }
     }
     const changeResultsMessageWinner = (player) => {
@@ -425,10 +442,12 @@ const DOMController = (() => {
         if (action === "display") {
             if (GameFlowController.getGameMode() === "single") {
                 toggleComputerMessage("display");
+                changeResultsMessageSinglePlayer(player);
+                changeComputerMessage(player);
             } else if (GameFlowController.getGameMode() === "two") {
                 toggleComputerMessage("hide");
+                changeResultsMessageWinner(player);
             }
-            changeResultsMessageWinner(player);
             endScreenElement.classList.remove("default-display-none")
             endScreenElement.style.display = "flex";
         } else if (action === "hide") {
@@ -441,6 +460,7 @@ const DOMController = (() => {
     const toggleDrawMessage = (action) => {
         console.log("draw!")
         if (action === "display") {
+            toggleComputerMessage("hide");
             changeResultsMessageDraw();
             endScreenElement.classList.remove("default-display-none")
             endScreenElement.style.display = "flex";
