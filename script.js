@@ -38,7 +38,23 @@ const Computer = (name, sign) => {
     const test = () => {
         console.log("test");
     }
-    return {getName, getSign, test};
+    const makeRandomMove = () => {
+        let emptyTiles = [];
+        const gameBoardState = GameBoard.getGameBoardState();
+        for (tile in gameBoardState) {
+            if (gameBoardState[tile] === null) {
+                emptyTiles.push(tile);
+            }
+        }
+        let numberOfEmptyTiles = emptyTiles.length;
+        let randomIndex = Math.floor(Math.random() * numberOfEmptyTiles)
+        let randomTile = emptyTiles[randomIndex];
+        GameBoard.updateGameBoardState(randomTile);
+        const currentPlayer = GameFlowController.getCurrentPlayer();
+        DOMController.updateGameBoardElement(currentPlayer, randomTile);
+        GameFlowController.resolvePlayerGameInput();
+    }
+    return {getName, getSign, test, makeRandomMove};
 }
 
 const GameFlowController = (() => {
@@ -144,6 +160,19 @@ const GameFlowController = (() => {
         }
         return true;
     }
+    const resolvePlayerGameInput = () => {
+        if (checkForWinner(currentPlayer)) {
+            // display winner and play again button, prevent ability to click board
+            endGame();
+            DOMController.toggleWinnerMessage("display", currentPlayer);
+        } else if (checkForDraw()) {
+            endGame();
+            DOMController.toggleDrawMessage("display");
+        } else {
+            alternateCurrentPlayer();
+            endTurn();
+        }
+    }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
         console.log("test")
         console.log(currentPlayer)
@@ -153,6 +182,7 @@ const GameFlowController = (() => {
                 GameBoard.updateGameBoardState(boardPosition);
                 DOMController.updateGameBoardElement(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
+                // replace with resolvePlayerGameInput later
                 if (checkForWinner(currentPlayer)) {
                     // display winner and play again button, prevent ability to click board
                     endGame();
@@ -225,7 +255,7 @@ const GameFlowController = (() => {
     const resetPlayerArray = () => {
         playerObjectsArray = [];
     }
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu, setGameMode};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu, setGameMode, playerObjectsArray, resolvePlayerGameInput};
 })();
 
 
