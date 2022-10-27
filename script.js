@@ -396,12 +396,27 @@ const DOMController = (() => {
             invalidMoveErrorMessage.style.display = "none";
         }
     }
+    const toggleComputerMessage = (action) => {
+        const computerMessage = document.querySelector(".computer-message");
+        if (action === "display") {
+            computerMessage.classList.remove("default-display-none");
+            computerMessage.style.display = "block";
+            computerMessage.textContent = "HAHA, YOU HAVE LOST, PUNY HUMAN!";
+        } else if (action === "hide") {
+            computerMessage.style.display = "none";
+        }
+    }
     const changeResultsMessageWinner = (player) => {
         const winningPlayerName = player.getName();
         resultsMessage.textContent = `Congratulations, ${winningPlayerName}!\nYou Win!`;
     }
     const toggleWinnerMessage = (action, player) => {
         if (action === "display") {
+            if (GameFlowController.getGameMode() === "single") {
+                toggleComputerMessage("display");
+            } else if (GameFlowController.getGameMode() === "two") {
+                toggleComputerMessage("hide");
+            }
             changeResultsMessageWinner(player);
             endScreenElement.classList.remove("default-display-none")
             endScreenElement.style.display = "flex";
