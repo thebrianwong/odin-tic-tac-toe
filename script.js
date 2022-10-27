@@ -32,6 +32,15 @@ const Player = (name, sign) => {
     return {sign, getName, getSign};
 };
 
+const Computer = (name, sign) => {
+    const {getName} = Player(name, sign);
+    const {getSign} = Player(name, sign);
+    const test = () => {
+        console.log("test");
+    }
+    return {getName, getSign, test};
+}
+
 const GameFlowController = (() => {
     let gameMode = null;
     let gameInProgress = true;
@@ -83,7 +92,7 @@ const GameFlowController = (() => {
         const playerOne = getPlayerFromArray(0);
         const playerComputerNewName = "make a new function that returns a random name from an array of robot names like Bender, Skynet, etc.";
         const playerComputerNewSign = assignOppositePlayerSign(playerOne);
-        const playerComputer = Player(playerComputerNewName, playerComputerNewSign);
+        const playerComputer = Computer(playerComputerNewName, playerComputerNewSign);
         addPlayerToArray(playerComputer);
         return playerComputer;
     }
