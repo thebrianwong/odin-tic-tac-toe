@@ -40,6 +40,9 @@ const GameFlowController = (() => {
     const getGameMode = () => {
         return gameMode;
     }
+    const setGameMode = (mode) => {
+        gameMode = mode;
+    }
     const getCurrentPlayer = () => {
         return currentPlayer;
     }
@@ -213,7 +216,7 @@ const GameFlowController = (() => {
     const resetPlayerArray = () => {
         playerObjectsArray = [];
     }
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu};
+    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu, setGameMode};
 })();
 
 
@@ -297,6 +300,7 @@ const DOMController = (() => {
         singlePlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
             setTimeout(togglePlayerForm.bind(this, "display"), 550)
+            GameFlowController.setGameMode("single");
             // GameFlowController.startGame();
         })
     }
@@ -305,6 +309,7 @@ const DOMController = (() => {
         twoPlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
             setTimeout(togglePlayerForm.bind(this, "display"), 550)
+            GameFlowController.setGameMode("two");
             // GameFlowController.startGame();
         })
     }
