@@ -176,7 +176,9 @@ const GameFlowController = (() => {
     const alternateToComputerTurn = () => {
         const computerPlayer = playerObjectsArray[1];
         // computerPlayer.makeRandomMove();
+        DOMController.togglePlayerInput("disable");
         setTimeout(computerPlayer.makeRandomMove, 500);
+        setTimeout(DOMController.togglePlayerInput.bind(this, "enable"), 500);
         // alternateCurrentPlayer();
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
@@ -543,6 +545,14 @@ const DOMController = (() => {
             gameBoardElement.classList.remove("game-board-display-animation");
         }
     }
+    const togglePlayerInput = (action) => {
+        const gameBoardElement = document.querySelector(".game-board-container");
+        if (action === "enable") {
+            gameBoardElement.style.pointerEvents = "auto";
+        } else if (action === "disable") {
+            gameBoardElement.style.pointerEvents = "none";
+        }
+    }
     const testDisplayEntireGameBoardState = () => {
         const gameBoardState = GameBoard.getGameBoardState();
         for (let i = 0; i < gameBoardState.length; i++) {
@@ -557,7 +567,7 @@ const DOMController = (() => {
     return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
             toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardElement,
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
-            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker, addMainMenuButtonClicker};
+            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker, addMainMenuButtonClicker, togglePlayerInput};
 })();
 
 // originally put these into the Player object but might be better to actually put them in the game logic module
