@@ -182,18 +182,7 @@ const GameFlowController = (() => {
                 GameBoard.updateGameBoardState(boardPosition);
                 DOMController.updateGameBoardElement(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
-                // replace with resolvePlayerGameInput later
-                if (checkForWinner(currentPlayer)) {
-                    // display winner and play again button, prevent ability to click board
-                    endGame();
-                    DOMController.toggleWinnerMessage("display", currentPlayer);
-                } else if (checkForDraw()) {
-                    endGame();
-                    DOMController.toggleDrawMessage("display");
-                } else {
-                    alternateCurrentPlayer();
-                    endTurn();
-                }
+                resolvePlayerGameInput();
             } else {
                 // display error message function in DOM controller object
                 console.log("test")
