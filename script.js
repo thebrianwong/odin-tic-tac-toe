@@ -170,8 +170,13 @@ const GameFlowController = (() => {
             DOMController.toggleDrawMessage("display");
         } else {
             alternateCurrentPlayer();
-            endTurn();
+            // endTurn(); (alternate does the same thing, delete this later)
         }
+    }
+    const alternateToComputerTurn = () => {
+        const computerPlayer = playerObjectsArray[1];
+        computerPlayer.makeRandomMove();
+        // alternateCurrentPlayer();
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
         console.log("test")
@@ -183,6 +188,9 @@ const GameFlowController = (() => {
                 DOMController.updateGameBoardElement(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
                 resolvePlayerGameInput();
+                if (gameMode === "single" && gameInProgress) {
+                    alternateToComputerTurn();
+                }
             } else {
                 // display error message function in DOM controller object
                 console.log("test")
