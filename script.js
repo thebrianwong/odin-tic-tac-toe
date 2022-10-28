@@ -175,7 +175,8 @@ const GameFlowController = (() => {
     }
     const alternateToComputerTurn = () => {
         const computerPlayer = playerObjectsArray[1];
-        computerPlayer.makeRandomMove();
+        // computerPlayer.makeRandomMove();
+        setTimeout(computerPlayer.makeRandomMove, 500);
         // alternateCurrentPlayer();
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
