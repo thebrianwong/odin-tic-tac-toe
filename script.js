@@ -46,6 +46,13 @@ const Computer = (name, sign) => {
                 emptyTiles.push(tile);
             }
         }
+        // look at board state, calculate a heuristic for each tile
+        // occupied tiles get a score of 0
+        // center tile gets the highest starting score
+        // corner tiles get a higher starting score
+        // middle tiles get a low starting score
+        // if a tile can win with a 3 in a row, it gets the highest modifier
+        // if a tile can block a 3 in a row, it gets a high increased modifier
         let numberOfEmptyTiles = emptyTiles.length;
         let randomIndex = Math.floor(Math.random() * numberOfEmptyTiles)
         let randomTile = emptyTiles[randomIndex];
