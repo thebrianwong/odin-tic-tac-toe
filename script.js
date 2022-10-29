@@ -59,7 +59,7 @@ const Computer = (name, sign) => {
 
 const GameFlowController = (() => {
     let gameMode = null;
-    let gameInProgress = true;
+    let gameInProgress = null;
     let currentPlayer = null;
     let playerObjectsArray = [];
     const getGameMode = () => {
@@ -67,6 +67,12 @@ const GameFlowController = (() => {
     }
     const setGameMode = (mode) => {
         gameMode = mode;
+    }
+    const getGameInProgress = () => {
+        return gameInProgress;
+    }
+    const setGameInProgress = (state) => {
+        gameInProgress = state;
     }
     const getCurrentPlayer = () => {
         return currentPlayer;
@@ -185,13 +191,13 @@ const GameFlowController = (() => {
         console.log("test")
         console.log(currentPlayer)
         console.log(boardPosition)
-        if (gameInProgress) {
+        if (getGameInProgress()) {
             if (checkForValidMove(boardPosition)) {
                 GameBoard.updateGameBoardState(boardPosition);
                 DOMController.updateGameBoardElement(currentPlayer, boardPosition)
                 DOMController.toggleInvalidMoveErrorMessage("hide");
                 resolvePlayerGameInput();
-                if (gameMode === "single" && gameInProgress) {
+                if (gameMode === "single" && getGameInProgress()) {
                     alternateToComputerTurn();
                 }
             } else {
@@ -219,6 +225,7 @@ const GameFlowController = (() => {
         // click button to submit, probably where createPlayerTwo() is called
         // then have it be player 1's turn and they can make a move
         // assign currentPlayerTurn to player 1
+        setGameInProgress(true);
     }
     const endTurn = (playerOne, playerTwo) => {
         // some logic to alternate the current turn player
@@ -232,7 +239,7 @@ const GameFlowController = (() => {
     }
     const endGame = () => {
         // call functions that are located in the DOM controller object to display results screen, win or draw
-        gameInProgress = false;
+        setGameInProgress(false)
         return;
     };
     // need to tie this to the Play Again button in the end screen
@@ -241,7 +248,7 @@ const GameFlowController = (() => {
         resetGameState();
     }
     const exitToMainMenu = () => {
-        if (!gameInProgress) {
+        if (getGameInProgress === false) {
             resetGameState();
             resetPlayerArray();
         }
@@ -249,7 +256,7 @@ const GameFlowController = (() => {
     const resetGameState = () => {
         GameBoard.resetGameBoardState();
         DOMController.resetGameBoardElement();
-        gameInProgress = true;
+        setGameInProgress(true)
         currentPlayer = getPlayerFromArray(0);
     }
     const resetPlayerArray = () => {
@@ -290,6 +297,7 @@ const DOMController = (() => {
                 // togglePlayerForm("hide");
                 // setTimeout(resetForm, 500)
                 setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
+                GameFlowController.startGame();
             } else if (gameMode === "two") {
                 // togglePlayerForm("hide");
                 // setTimeout(resetForm, 500)
@@ -308,6 +316,7 @@ const DOMController = (() => {
             setTimeout(resetForm, 500);
             setTimeout(alternatePlayerForm.bind(this,"one"), 550);
             setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
+            GameFlowController.startGame();
         });
     }
     const alternatePlayerForm = (newPlayer) => {
