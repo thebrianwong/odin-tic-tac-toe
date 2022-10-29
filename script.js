@@ -527,7 +527,14 @@ const DOMController = (() => {
     const updateGameBoardElement = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
-        boardPositionElement.textContent = currentPlayerSign;
+        const signImage = document.createElement("img");
+        // boardPositionElement.textContent = currentPlayerSign;
+        if (currentPlayerSign === "X") {
+            signImage.setAttribute("src", "assets/X-sign.png");
+        } else {
+            signImage.setAttribute("src", "assets/O-sign.png");
+        }
+        boardPositionElement.appendChild(signImage);
     }
     const resetGameBoardElement = () => {
         const boardPositionElements = Array.from(document.querySelectorAll(".board-tile"));
