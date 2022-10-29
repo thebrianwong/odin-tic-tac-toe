@@ -248,7 +248,7 @@ const GameFlowController = (() => {
         resetGameState();
     }
     const exitToMainMenu = () => {
-        if (getGameInProgress === false) {
+        if (getGameInProgress() === false) {
             resetGameState();
             resetPlayerArray();
         }
