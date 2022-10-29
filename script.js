@@ -256,7 +256,7 @@ const GameFlowController = (() => {
     const resetGameState = () => {
         GameBoard.resetGameBoardState();
         DOMController.resetGameBoardElement();
-        setGameInProgress(true)
+        setGameInProgress(true);
         currentPlayer = getPlayerFromArray(0);
     }
     const resetPlayerArray = () => {
