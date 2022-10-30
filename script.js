@@ -499,7 +499,8 @@ const DOMController = (() => {
             const signButtons = Array.from(document.querySelectorAll(".sign-button"));
             formHeader.textContent = "Player One";
             playerOneSubmitFormButton.classList.remove("default-display-none");
-            playerTwoSubmitFormButton.classList.add("default-display-none");
+            playerOneSubmitFormButton.style.display = "inline-block";
+            playerTwoSubmitFormButton.style.display = "none";
             for (button in signButtons) {
                 signButtons[button].removeAttribute("disabled");
             }
@@ -508,8 +509,9 @@ const DOMController = (() => {
             const playerOneSign = playerOne.getSign();
             const signButtonToDisable = document.querySelector(`#${playerOneSign}`);
             formHeader.textContent = "Player Two";
-            playerOneSubmitFormButton.classList.add("default-display-none");
+            playerOneSubmitFormButton.style.display = "none";
             playerTwoSubmitFormButton.classList.remove("default-display-none");
+            playerTwoSubmitFormButton.style.display = "inline-block";
             signButtonToDisable.setAttribute("disabled", "");
         }
     }
@@ -581,6 +583,7 @@ const DOMController = (() => {
         const playerForm = document.querySelector(".player-form");
         if (action === "display") {
             playerForm.classList.remove("default-display-none");
+            playerForm.style.display = "flex";
             playerForm.classList.remove("form-hide-animation");
             playerForm.classList.add("form-display-animation");
         } else if (action === "hide") {
@@ -588,7 +591,7 @@ const DOMController = (() => {
             playerForm.classList.add("form-hide-animation");
             if (GameFlowController.getPlayerArray().length == 2) {
                 setTimeout(function() {
-                    playerForm.classList.add("default-display-none")
+                    playerForm.style.display = "none"
                 }, 500);
             }
         };
@@ -596,6 +599,7 @@ const DOMController = (() => {
     const toggleInvalidMoveErrorMessage = (action) => {
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
         if (action === "display") {
+            invalidMoveErrorMessage.classList.remove("default-display-none");
             invalidMoveErrorMessage.style.display = "block";
         } else if (action === "hide") {
             invalidMoveErrorMessage.style.display = "none";
@@ -696,9 +700,10 @@ const DOMController = (() => {
         const gameBoardElement = document.querySelector(".game-board-container");
         if (action === "display") {
             gameBoardElement.classList.remove("default-display-none");
+            gameBoardElement.style.display = "grid";
             gameBoardElement.classList.add("game-board-display-animation");
         } else if (action === "hide") {
-            gameBoardElement.classList.add("default-display-none");
+            gameBoardElement.style.display = "none";
             gameBoardElement.classList.remove("game-board-display-animation");
         }
     }
