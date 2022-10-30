@@ -9,7 +9,6 @@ const GameBoard = (() => {
     };
     const updateGameBoardState = (boardPosition) => {
         let currentPlayer = GameFlowController.getCurrentPlayer();
-        // console.log(currentPlayer);
         gameBoardState[boardPosition] = currentPlayer.getSign();
     };
     const resetGameBoardState = () => {
@@ -29,7 +28,7 @@ const Player = (name, sign) => {
     const getSign = () => {
         return sign;
     };
-    return {sign, getName, getSign};
+    return {getName, getSign};
 };
 
 const Computer = (name, sign) => {
@@ -319,7 +318,6 @@ const GameFlowController = (() => {
         const playerOneNewName = DOMController.receivePlayerNameInput();
         const playerOneNewSign = DOMController.receivePlayerSignInput();
         const playerOne = Player(playerOneNewName, playerOneNewSign);
-        // console.log(playerOne)
         addPlayerToArray(playerOne);
         return playerOne;
     }
@@ -389,7 +387,6 @@ const GameFlowController = (() => {
     }
     const resolvePlayerGameInput = () => {
         if (checkForWinner(currentPlayer)) {
-            // display winner and play again button, prevent ability to click board
             endGame();
             DOMController.toggleWinnerMessage("display", currentPlayer);
         } else if (checkForDraw()) {
@@ -397,21 +394,15 @@ const GameFlowController = (() => {
             DOMController.toggleDrawMessage("display");
         } else {
             alternateCurrentPlayer();
-            // endTurn(); (alternate does the same thing, delete this later)
         }
     }
     const alternateToComputerTurn = () => {
         const computerPlayer = playerObjectsArray[1];
-        // computerPlayer.makeRandomMove();
         DOMController.togglePlayerInput("disable");
         setTimeout(computerPlayer.makeComputerMove, 500);
         setTimeout(DOMController.togglePlayerInput.bind(this, "enable"), 500);
-        // alternateCurrentPlayer();
     }
     const receivePlayerGameInput = (currentPlayer, boardPosition) => {
-        console.log("test")
-        console.log(currentPlayer)
-        console.log(boardPosition)
         if (getGameInProgress()) {
             if (checkForValidMove(boardPosition)) {
                 GameBoard.updateGameBoardState(boardPosition);
@@ -422,8 +413,6 @@ const GameFlowController = (() => {
                     alternateToComputerTurn();
                 }
             } else {
-                // display error message function in DOM controller object
-                console.log("test")
                 DOMController.toggleInvalidMoveErrorMessage("display");
             }
         }
@@ -439,33 +428,12 @@ const GameFlowController = (() => {
         }
     }
     const startGame = () => {
-        // connect to some DOM element button with click listener
-        // form appears where you type in name and choose sign as player 1
-        // click button to submit, probably where createPlayerOne() is called
-        // new form appears where player 2 types in name, maybe player 1 sign is grayed out
-        // click button to submit, probably where createPlayerTwo() is called
-        // then have it be player 1's turn and they can make a move
-        // assign currentPlayerTurn to player 1
         setGameInProgress(true);
     }
-    const endTurn = (playerOne, playerTwo) => {
-        // some logic to alternate the current turn player
-        // will probably call another function to do so
-        console.log("test");
-        if (currentPlayer === playerOne) {
-            currentPlayer === playerTwo;
-        } else {
-            currentPlayer === playerOne;
-        }
-    }
     const endGame = () => {
-        // call functions that are located in the DOM controller object to display results screen, win or draw
         setGameInProgress(false)
-        return;
     };
-    // need to tie this to the Play Again button in the end screen
     const playAgain = () => {
-        // probably put all of this into a separate "reset" function, then call a new function that hides the end screen
         resetGameState();
     }
     const exitToMainMenu = () => {
@@ -492,21 +460,6 @@ const DOMController = (() => {
     // const playerForm = document.querySelector(".player-form");
     const endScreenElement = document.querySelector(".end-screen-container");
     const resultsMessage = document.querySelector(".results-message");
-    // const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
-    // const playerTwoSubmitFormButton = document.querySelector("#player-two-submit-form-button");
-    // playerOneSubmitFormButton.addEventListener("click", () => {
-    //     const playerOne = GameFlowController.createPlayerOne();
-    //     GameFlowController.setCurrentPlayer(playerOne);
-    //     const gameMode = GameFlowController.getGameMode();
-    //     if (gameMode === "single") {
-    //         const playerComputer = GameFlowController.createPlayerComputer();
-    //     }
-    //     togglePlayerForm("hide");
-    // });
-    // playerTwoSubmitFormButton.addEventListener("click", () => {
-    //     const playerTwo = GameFlowController.createPlayerTwo();
-    //     togglePlayerForm("hide");
-    // });
     const addPlayerOneSubmitFormButtonClicker = () => {
         const playerOneSubmitFormButton = document.querySelector("#player-one-submit-form-button");
         playerOneSubmitFormButton.addEventListener("click", () => {
@@ -515,13 +468,9 @@ const DOMController = (() => {
             const gameMode = GameFlowController.getGameMode();
             if (gameMode === "single") {
                 const playerComputer = GameFlowController.createPlayerComputer();
-                // togglePlayerForm("hide");
-                // setTimeout(resetForm, 500)
                 setTimeout(toggleGameBoardElement.bind(this, "display"), 550);
                 GameFlowController.startGame();
             } else if (gameMode === "two") {
-                // togglePlayerForm("hide");
-                // setTimeout(resetForm, 500)
                 setTimeout(alternatePlayerForm.bind(this, "two"), 550);
                 setTimeout(togglePlayerForm.bind(this, "display"), 550);
             }
@@ -576,7 +525,6 @@ const DOMController = (() => {
             toggleStartScreen("hide");
             setTimeout(togglePlayerForm.bind(this, "display"), 550)
             GameFlowController.setGameMode("single");
-            // GameFlowController.startGame();
         })
     }
     const addtwoPlayerModeButtonClicker = () => {
@@ -585,19 +533,14 @@ const DOMController = (() => {
             toggleStartScreen("hide");
             setTimeout(togglePlayerForm.bind(this, "display"), 550)
             GameFlowController.setGameMode("two");
-            // GameFlowController.startGame();
         })
     }
     const addPlayerMoveClickers = () => {
         const boardPositions = Array.from(document.querySelectorAll(".board-tile"));
         boardPositions.forEach((boardTile) => {
-            // let currentPlayer = GameFlowController.getCurrentPlayer();
             let boardPosition = boardTile.dataset.boardPosition;
             boardTile.addEventListener("click", ()=> {
-                // console.log("test")
                 let currentPlayer = GameFlowController.getCurrentPlayer();
-                console.log(currentPlayer);
-                console.log(boardPosition);
                 GameFlowController.receivePlayerGameInput(currentPlayer, boardPosition);
             });
         })
@@ -619,20 +562,14 @@ const DOMController = (() => {
         })
     }
     const receivePlayerNameInput = () => {
-        // look at DOM element value (probably a form), return value
-        // pass the 2 variables to Player factory function ex. const player1 = Player()
         const playerNameInputElement = document.querySelector(".player-name-input");
         const playerNameInput = playerNameInputElement.value;
         return playerNameInput;
     }
     const receivePlayerSignInput = () => {
-        // look at DOM buttons for X or O, return value
-        // only for player 1 since player 2 will get the sign not chosen
-        // the buttons will likely be radio buttons that are styled to look like regular buttons
         const playerSignXButton = document.querySelector(".sign-x-button");
         const playerSignOButton = document.querySelector(".sign-o-button");
         if (playerSignXButton.checked) {
-            // console.log(playerSignXButton.getAttribute("id"))
             return playerSignXButton.getAttribute("id");
         } else {
             return playerSignOButton.getAttribute("id");
@@ -658,17 +595,12 @@ const DOMController = (() => {
             playerForm.classList.add("form-hide-animation");
             if (GameFlowController.getPlayerArray().length == 2) {
                 setTimeout(function() {
-                    // playerForm.style.display = "none";
                     playerForm.classList.add("default-display-none")
                 }, 500);
             }
-            // setTimeout(function() {
-            //     playerForm.style.display = "none";
-            // }, 500);
         };
     };
     const toggleInvalidMoveErrorMessage = (action) => {
-        // console.log("toggle invalid")
         const invalidMoveErrorMessage = document.querySelector(".invalid-move-error-message");
         if (action === "display") {
             invalidMoveErrorMessage.style.display = "block";
@@ -727,7 +659,6 @@ const DOMController = (() => {
         resultsMessage.textContent = `It's A Draw!\nBetter Luck Next Time!`;
     }
     const toggleDrawMessage = (action) => {
-        console.log("draw!")
         if (action === "display") {
             toggleComputerMessage("hide");
             changeResultsMessageDraw();
@@ -740,12 +671,10 @@ const DOMController = (() => {
     const toggleStartScreen = (action) => {
         const startScreenElement = document.querySelector(".start-screen-container");
         if (action === "display") {
-            // startScreenElement.style.visibility = "visible";
             startScreenElement.classList.remove("start-screen-hide-animation");
             startScreenElement.classList.add("start-screen-display-animation");
             startScreenElement.style.display = "flex";
         } else if (action === "hide") {
-            // startScreenElement.style.display = "none";
             startScreenElement.classList.remove("start-screen-display-animation");
             startScreenElement.classList.add("start-screen-hide-animation");
             setTimeout(function () {
@@ -753,12 +682,10 @@ const DOMController = (() => {
             }, 500);
         }
     }
-    // used to update 1 single tile, as opposed to displaying the whole board (which is redundant if there is only 1 change per turn)
     const updateGameBoardElement = (currentPlayer, boardPosition) => {
         const currentPlayerSign = currentPlayer.getSign();
         const boardPositionElement = document.querySelector(`[data-board-position="${boardPosition}"]`);
         const signImage = document.createElement("img");
-        // boardPositionElement.textContent = currentPlayerSign;
         if (currentPlayerSign === "X") {
             signImage.setAttribute("src", "assets/X-sign.png");
         } else {
@@ -806,20 +733,6 @@ const DOMController = (() => {
             toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
             addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker, addMainMenuButtonClicker, togglePlayerInput};
 })();
-
-// originally put these into the Player object but might be better to actually put them in the game logic module
-const setPlayerSign = (sign) => {
-    //  will set the playerSign variable to X or O
-    playerSign = sign;
-};
-const choosePlayerSign = () => {
-    // will link to DOM elements for choosing either X or O
-    // diff between this and setPlayerSign is that only player 1 chooses sign (choose and set),
-        // whereas player 2 is forced to have the remaining sign (set)
-    // "X" is a placeholder, will be whatever value is returned from the targeted DOM element selected
-    setPlayerSign("X");
-    return;
-};
 
 DOMController.addPlayerMoveClickers();
 DOMController.addSinglePlayerModeButtonClicker();
