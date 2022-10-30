@@ -159,6 +159,10 @@ form {
     padding: 16px;
 }
 
+.start-screen-container > * {
+    text-align: center;
+}
+
 .start-screen-container h1 {
     margin-top: 0;
 }
@@ -327,4 +331,27 @@ form {
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
+}
+
+@media (max-width: 500px) {
+    .start-screen-container {
+        width: 80%;
+    }
+    .form-container {
+        width: 80%;
+    }
+    .board-tile {
+        height: auto;
+        width: auto;
+        min-height: 75px;
+        min-width: 75px;
+    }
+    .board-tile img {
+        height: 50px;
+        width: 50px;
+    }
+    .end-screen-container {
+        width: 80%;
+        left: auto;
+    }
 }
