@@ -50,7 +50,7 @@ const Computer = (name, sign) => {
         DOMController.updateGameBoardElement(currentPlayer, randomTile);
         GameFlowController.resolvePlayerGameInput();
     }
-    const makeComputerMove = () => {
+    const calculateOptimalTile = () => {
         let tileHeuristics = [];
         let highestHeuristic = null;
         let optimalTile = null;
@@ -267,9 +267,12 @@ const Computer = (name, sign) => {
         for (heuristic in tileHeuristics) {
             if (tileHeuristics[heuristic] === highestHeuristic) {
                 optimalTile = heuristic;
-                break;
+                return optimalTile;
             }
         }
+    }
+    const makeComputerMove = () => {
+        let optimalTile = calculateOptimalTile();
         GameBoard.updateGameBoardState(optimalTile);
         const currentPlayer = GameFlowController.getCurrentPlayer();
         DOMController.updateGameBoardElement(currentPlayer, optimalTile);
