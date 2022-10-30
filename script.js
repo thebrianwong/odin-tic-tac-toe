@@ -186,10 +186,12 @@ const Computer = (name, sign) => {
                     heuristic += 50
                 }
 
+                // commenting this out so that there is one way to beat the computer
+                // (if not, having a victory message would be pointless)
                 // prevent V-shaped double traps
-                if (tile === 2 && gameBoardState[4] === humanPlayerSign && gameBoardState[8] === humanPlayerSign) {
-                    heuristic += 50
-                }
+                // if (tile === 2 && gameBoardState[4] === humanPlayerSign && gameBoardState[8] === humanPlayerSign) {
+                //     heuristic += 50
+                // }
 
                 // check adjacent tiles
                 // check down
