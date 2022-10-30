@@ -566,14 +566,18 @@ const DOMController = (() => {
         })
     }
     const receivePlayerNameInput = () => {
-        const playerNameInputElement = document.querySelector(".player-name-input");
-        const playerNameInput = playerNameInputElement.value;
-        return playerNameInput;
+        const playerNameInput = document.querySelector(".player-name-input").value;
+        const defaultName = document.querySelector(".form-header").textContent;
+        if (playerNameInput !== "") {
+            return playerNameInput;
+        } else {
+            return defaultName;
+        }
     }
     const receivePlayerSignInput = () => {
         const playerSignXButton = document.querySelector(".sign-x-button");
         const playerSignOButton = document.querySelector(".sign-o-button");
-        if (playerSignXButton.checked) {
+        if (playerSignXButton.checked || (playerSignXButton.checked === false && playerSignOButton.checked === false)) {
             return playerSignXButton.getAttribute("id");
         } else {
             return playerSignOButton.getAttribute("id");
