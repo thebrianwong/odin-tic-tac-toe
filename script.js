@@ -52,7 +52,7 @@ const Computer = (name, sign) => {
         DOMController.updateGameBoardElement(currentPlayer, randomTile);
         GameFlowController.resolvePlayerGameInput();
     }
-    const testMakeSmarterMove = () => {
+    const makeComputerMove = () => {
         let tileHeuristics = [];
         let highestHeuristic = null;
         let optimalTile = null;
@@ -275,7 +275,7 @@ const Computer = (name, sign) => {
         DOMController.updateGameBoardElement(currentPlayer, optimalTile);
         GameFlowController.resolvePlayerGameInput();
     }
-    return {getName, getSign, testMakeSmarterMove};
+    return {getName, getSign, makeComputerMove};
 }
 
 const GameFlowController = (() => {
@@ -404,7 +404,7 @@ const GameFlowController = (() => {
         const computerPlayer = playerObjectsArray[1];
         // computerPlayer.makeRandomMove();
         DOMController.togglePlayerInput("disable");
-        setTimeout(computerPlayer.testMakeSmarterMove, 500);
+        setTimeout(computerPlayer.makeComputerMove, 500);
         setTimeout(DOMController.togglePlayerInput.bind(this, "enable"), 500);
         // alternateCurrentPlayer();
     }
