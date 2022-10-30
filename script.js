@@ -35,9 +35,7 @@ const Player = (name, sign) => {
 const Computer = (name, sign) => {
     const {getName} = Player(name, sign);
     const {getSign} = Player(name, sign);
-    const test = () => {
-        console.log("test");
-    }
+    // keeping for posterity
     const makeRandomMove = () => {
         let emptyTiles = [];
         const gameBoardState = GameBoard.getGameBoardState();
@@ -46,13 +44,6 @@ const Computer = (name, sign) => {
                 emptyTiles.push(tile);
             }
         }
-        // look at board state, calculate a heuristic for each tile
-        // occupied tiles get a score of 0
-        // center tile gets the highest starting score
-        // corner tiles get a higher starting score
-        // middle tiles get a low starting score
-        // if a tile can win with a 3 in a row, it gets the highest modifier
-        // if a tile can block a 3 in a row, it gets a high increased modifier
         let numberOfEmptyTiles = emptyTiles.length;
         let randomIndex = Math.floor(Math.random() * numberOfEmptyTiles)
         let randomTile = emptyTiles[randomIndex];
@@ -284,7 +275,7 @@ const Computer = (name, sign) => {
         DOMController.updateGameBoardElement(currentPlayer, optimalTile);
         GameFlowController.resolvePlayerGameInput();
     }
-    return {getName, getSign, test, makeRandomMove, testMakeSmarterMove};
+    return {getName, getSign, testMakeSmarterMove};
 }
 
 const GameFlowController = (() => {
