@@ -32,8 +32,7 @@ const Player = (name, sign) => {
 };
 
 const Computer = (name, sign) => {
-    const {getName} = Player(name, sign);
-    const {getSign} = Player(name, sign);
+    const {getName, getSign} = Player(name, sign);
     // keeping for posterity
     const makeRandomMove = () => {
         let emptyTiles = [];
