@@ -533,7 +533,7 @@ const DOMController = (() => {
             GameFlowController.setGameMode("single");
         })
     }
-    const addtwoPlayerModeButtonClicker = () => {
+    const addTwoPlayerModeButtonClicker = () => {
         const twoPlayerModeButton = document.querySelector(".two-player-mode-button");
         twoPlayerModeButton.addEventListener("click", () => {
             toggleStartScreen("hide");
@@ -623,7 +623,7 @@ const DOMController = (() => {
             computerMessage.style.display = "none";
         }
     }
-    const changeResultsMessageSinglePlayer = (player) => {
+    const changeResultsMainMessage = (player) => {
         const humanPlayer = GameFlowController.getPlayerFromArray(0);
         const humanPlayerName = humanPlayer.getName();
         if (player === humanPlayer) {
@@ -632,7 +632,7 @@ const DOMController = (() => {
             resultsMessage.textContent = "HAHA,\nYOU HAVE LOST,\nPUNY HUMAN";
         }
     }
-    const changeComputerMessage = (player) => {
+    const changeResultsSubMessage = (player) => {
         const humanPlayer = GameFlowController.getPlayerFromArray(0);
         const computerMessage = document.querySelector(".computer-message");
         if (player === humanPlayer) {
@@ -641,7 +641,7 @@ const DOMController = (() => {
             computerMessage.textContent = "PLAY AGAIN SO I MAY\nCRUSH YOU ONCE MORE";
         }
     }
-    const changeResultsMessageWinner = (player) => {
+    const changeResultsMessageTwoPlayer = (player) => {
         const winningPlayerName = player.getName();
         resultsMessage.textContent = `Congratulations, ${winningPlayerName}!\nYou Win!`;
     }
@@ -649,11 +649,11 @@ const DOMController = (() => {
         if (action === "display") {
             if (GameFlowController.getGameMode() === "single") {
                 toggleComputerMessage("display");
-                changeResultsMessageSinglePlayer(player);
-                changeComputerMessage(player);
+                changeResultsMainMessage(player);
+                changeResultsSubMessage(player);
             } else if (GameFlowController.getGameMode() === "two") {
                 toggleComputerMessage("hide");
-                changeResultsMessageWinner(player);
+                changeResultsMessageTwoPlayer(player);
             }
             endScreenElement.classList.remove("default-display-none")
             endScreenElement.style.display = "flex";
@@ -723,21 +723,11 @@ const DOMController = (() => {
             gameBoardElement.style.pointerEvents = "none";
         }
     }
-    const testDisplayEntireGameBoardState = () => {
-        const gameBoardState = GameBoard.getGameBoardState();
-        for (let i = 0; i < gameBoardState.length; i++) {
-            const boardPositionElement = document.querySelector(`[data-board-position="${i}"]`);
-            if (gameBoardState[i] === null) {
-                boardPositionElement.textContent = "";
-            } else {
-                boardPositionElement.textContent = gameBoardState[i];
-            }
-        }
-    }
-    return {receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage, toggleWinnerMessage,
-            toggleDrawMessage, updateGameBoardElement, testDisplayEntireGameBoardState, addPlayerMoveClickers, resetGameBoardElement,
-            toggleStartScreen, addSinglePlayerModeButtonClicker, addTwoPlayerModeButtonClicker: addtwoPlayerModeButtonClicker,
-            addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addPlayAgainButtonClicker, addMainMenuButtonClicker, togglePlayerInput};
+    return {addPlayerOneSubmitFormButtonClicker, addPlayerTwoSubmitFormButtonClicker, addSinglePlayerModeButtonClicker,
+            addTwoPlayerModeButtonClicker, addPlayerMoveClickers,addPlayAgainButtonClicker, addMainMenuButtonClicker,
+            receivePlayerNameInput, receivePlayerSignInput, togglePlayerForm, toggleInvalidMoveErrorMessage,
+            toggleWinnerMessage, toggleDrawMessage, toggleStartScreen, updateGameBoardElement,  resetGameBoardElement, 
+            togglePlayerInput};
 })();
 
 DOMController.addPlayerMoveClickers();
