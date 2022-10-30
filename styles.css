@@ -212,6 +212,11 @@ form {
     left: calc((100% / 2) - (360px / 2));
     width: 324px;
     height: 250px;
+    opacity: 0.75;
+}
+
+.end-screen-container:hover {
+    opacity: 1;
 }
 
 .results-message {
