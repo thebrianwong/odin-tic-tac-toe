@@ -13,11 +13,9 @@ const GameBoard = (() => {
     };
     const resetGameBoardState = () => {
         for (boardPosition in gameBoardState) {
-            gameBoardState[boardPosition] = null
+            gameBoardState[boardPosition] = null;
         }
     };
-    // consider making update and reset functions private as player could mess with the game via console
-        // perhaps call them in the getGameBoardState() function, with an if statement determining which, if any, needs to be called
     return {getGameBoardState, updateGameBoardState, resetGameBoardState};
 })();
 
@@ -41,9 +39,9 @@ const Computer = (name, sign) => {
             if (gameBoardState[tile] === null) {
                 emptyTiles.push(tile);
             }
-        }
+        };
         let numberOfEmptyTiles = emptyTiles.length;
-        let randomIndex = Math.floor(Math.random() * numberOfEmptyTiles)
+        let randomIndex = Math.floor(Math.random() * numberOfEmptyTiles);
         let randomTile = emptyTiles[randomIndex];
         GameBoard.updateGameBoardState(randomTile);
         const currentPlayer = GameFlowController.getCurrentPlayer();
@@ -58,7 +56,7 @@ const Computer = (name, sign) => {
         const gameBoardState = GameBoard.getGameBoardState();
         // look at each tile to evaluate and assign heuristic
         for (tile in gameBoardState) {
-            tile = Number(tile)
+            tile = Number(tile);
             let heuristic = 0;
             // if tile is already occupied, assign 0
             if (gameBoardState[tile] !== null) {
@@ -174,7 +172,7 @@ const Computer = (name, sign) => {
 
                 // choose middle tile on first turn if possible
                 if (tile === 4) {
-                    heuristic += 50
+                    heuristic += 50;
                 }
 
                 // prevent middle tile double traps (L shape)
@@ -182,7 +180,7 @@ const Computer = (name, sign) => {
                     (tile === 2 && gameBoardState[1] === humanPlayerSign && gameBoardState[5] === humanPlayerSign) ||
                     (tile === 6 && gameBoardState[3] === humanPlayerSign && gameBoardState[7] === humanPlayerSign) ||
                     (tile === 8 && gameBoardState[5] === humanPlayerSign && gameBoardState[7] === humanPlayerSign)) {
-                    heuristic += 50
+                    heuristic += 50;
                 }
 
                 // commenting this out so that there is one way to beat the computer
@@ -198,7 +196,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile+3] === humanPlayerSign){
                         heuristic += 7.5;
                     } else if (gameBoardState[tile+3] === sign) {
-                        heuristic += 5
+                        heuristic += 5;
                     }
                 }
                 // check right
@@ -206,7 +204,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile+1] === humanPlayerSign){
                         heuristic += 7.5;
                     } else if (gameBoardState[tile+1] === sign) {
-                        heuristic += 5
+                        heuristic += 5;
                     }
                 }
                 // check up
@@ -214,7 +212,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile-3] === humanPlayerSign){
                         heuristic += 7.5;
                     } else if (gameBoardState[tile-3] === sign) {
-                        heuristic += 5
+                        heuristic += 5;
                     }
                 }
                 // check left
@@ -222,7 +220,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile-1] === humanPlayerSign){
                         heuristic += 7.5;
                     } else if (gameBoardState[tile-1] === sign) {
-                        heuristic += 5
+                        heuristic += 5;
                     }
                 }
                 // check upper left corner
@@ -230,7 +228,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile-4] === humanPlayerSign){
                         heuristic += 8.5;
                     } else if (gameBoardState[tile-4] === sign) {
-                        heuristic += 6
+                        heuristic += 6;
                     }
                 }
                 // check upper right corner
@@ -238,7 +236,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile-2] === humanPlayerSign){
                         heuristic += 8.5;
                     } else if (gameBoardState[tile-2] === sign) {
-                        heuristic += 6
+                        heuristic += 6;
                     }
                 }
                 // check lower left corner
@@ -246,7 +244,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile+2] === humanPlayerSign){
                         heuristic += 8.5;
                     } else if (gameBoardState[tile+2] === sign) {
-                        heuristic += 6
+                        heuristic += 6;
                     }
                 }
                 // check lower right corner
@@ -254,7 +252,7 @@ const Computer = (name, sign) => {
                     if (gameBoardState[tile+4] === humanPlayerSign){
                         heuristic += 8.5;
                     } else if (gameBoardState[tile+4] === sign) {
-                        heuristic += 6
+                        heuristic += 6;
                     }
                 }
 
@@ -305,7 +303,7 @@ const GameFlowController = (() => {
         currentPlayer = player;
     }
     const addPlayerToArray = (player) => {
-        playerObjectsArray.push(player)
+        playerObjectsArray.push(player);
     }
     const getPlayerArray = () => {
         return playerObjectsArray;
@@ -338,7 +336,7 @@ const GameFlowController = (() => {
     }
     const createPlayerComputer = () => {
         const playerOne = getPlayerFromArray(0);
-        const playerComputerNewName = "make a new function that returns a random name from an array of robot names like Bender, Skynet, etc.";
+        const playerComputerNewName = "Skynet";
         const playerComputerNewSign = assignOppositePlayerSign(playerOne);
         const playerComputer = Computer(playerComputerNewName, playerComputerNewSign);
         addPlayerToArray(playerComputer);
@@ -413,7 +411,7 @@ const GameFlowController = (() => {
         if (getGameInProgress()) {
             if (checkForValidMove(boardPosition)) {
                 GameBoard.updateGameBoardState(boardPosition);
-                DOMController.updateGameBoardElement(currentPlayer, boardPosition)
+                DOMController.updateGameBoardElement(currentPlayer, boardPosition);
                 DOMController.toggleInvalidMoveErrorMessage("hide");
                 resolvePlayerGameInput();
                 if (gameMode === "single" && getGameInProgress()) {
@@ -435,7 +433,7 @@ const GameFlowController = (() => {
         setGameInProgress(true);
     }
     const endGame = () => {
-        setGameInProgress(false)
+        setGameInProgress(false);
     };
     const playAgain = () => {
         resetGameState();
@@ -462,8 +460,6 @@ const GameFlowController = (() => {
 
 
 const DOMController = (() => {
-    // uncomment if toggle function is removed
-    // const playerForm = document.querySelector(".player-form");
     const endScreenElement = document.querySelector(".end-screen-container");
     const resultsMessage = document.querySelector(".results-message");
     const addPlayerOneSubmitFormButtonClicker = () => {
@@ -581,19 +577,10 @@ const DOMController = (() => {
             return playerSignOButton.getAttribute("id");
         }
     }
-    // keeping as a comment in case toggle function is removed
-    // const displayPlayerForm = () => {
-    //     playerForm.classList.remove("form-hide-animation");
-    //     playerForm.classList.add("form-display-animation");
-    // };
-    // const hidePlayerForm = () => {
-    //     playerForm.classList.remove("form-display-animation");
-    //     playerForm.classList.add("form-hide-animation");
-    // };
     const togglePlayerForm = (action) => {
         const playerForm = document.querySelector(".player-form");
         if (action === "display") {
-            playerForm.classList.remove("default-display-none")
+            playerForm.classList.remove("default-display-none");
             playerForm.classList.remove("form-hide-animation");
             playerForm.classList.add("form-display-animation");
         } else if (action === "hide") {
