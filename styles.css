@@ -6,74 +6,31 @@
     height: 100vh;
 }
 
-.game-board-container {
-    display: grid;
-    grid-template-areas:
-        "tile0 tile1 tile2"
-        "tile3 tile4 tile5"
-        "tile6 tile7 tile8";
-        background-color: black;
-    gap: 10px;
-}
-
-.board-tile {
+.start-screen-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: white;
-    height: 150px;
-    width: 150px;
+    border: solid 2px black;
+    box-shadow: 1px 2px 10px darkgray;
+    padding: 16px;
 }
 
-[data-board-position="0"] {
-    grid-area: tile0;
+.start-screen-container > * {
+    text-align: center;
 }
 
-[data-board-position="1"] {
-    grid-area: tile1;
+.start-screen-container h1 {
+    margin-top: 0;
 }
 
-[data-board-position="2"] {
-    grid-area: tile2;
+.start-screen-container span {
+    font-style: italic;
 }
 
-[data-board-position="3"] {
-    grid-area: tile3;
-}
-
-[data-board-position="4"] {
-    grid-area: tile4;
-}
-
-[data-board-position="5"] {
-    grid-area: tile5;
-}
-
-[data-board-position="6"] {
-    grid-area: tile6;
-}
-
-[data-board-position="7"] {
-    grid-area: tile7;
-}
-
-[data-board-position="8"] {
-    grid-area: tile8;
-}
-
-input,
-button {
-    appearance: none;
-}
-
-input[type="radio"]:hover,
-input[type="button"]:hover {
-    cursor: pointer;
-}
-
-input[type="button"]:active {
-    background-color: rgb(195, 195, 195);
-    box-shadow: inset 0 2px 5px 1px darkgray;
+.start-screen-button-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .form-container {
@@ -146,33 +103,6 @@ form {
     background-size: 100%;
 }
 
-.start-screen-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: solid 2px black;
-    box-shadow: 1px 2px 10px darkgray;
-    padding: 16px;
-}
-
-.start-screen-container > * {
-    text-align: center;
-}
-
-.start-screen-container h1 {
-    margin-top: 0;
-}
-
-.start-screen-container span {
-    font-style: italic;
-}
-
-.start-screen-button-container {
-    display: flex;
-    gap: 16px;
-    margin-top: 16px;
-}
-
 .invalid-move-error-message {
     border: solid 3px red;
     background-color: rgb(255, 151, 151);
@@ -180,16 +110,71 @@ form {
     color: white;
     font-size: x-large;
     font-weight: 600;
+    position: absolute;
+    top: 5vh;
+    left: calc((100% / 2) - (351px / 2));
+    width: 313px;
+    padding: 16px;
+    text-align: center;
     text-shadow: 0 1px black,
                 0 -1px black,
                 1px 0 black,
                 -1px 0 black;
-    padding: 16px;
-    position: absolute;
-    top: 5vh;
-    text-align: center;
-    left: calc((100% / 2) - (351px / 2));
-    width: 313px;
+}
+
+.game-board-container {
+    display: grid;
+    grid-template-areas:
+        "tile0 tile1 tile2"
+        "tile3 tile4 tile5"
+        "tile6 tile7 tile8";
+        background-color: black;
+    gap: 10px;
+}
+
+.board-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 150px;
+    width: 150px;
+}
+
+[data-board-position="0"] {
+    grid-area: tile0;
+}
+
+[data-board-position="1"] {
+    grid-area: tile1;
+}
+
+[data-board-position="2"] {
+    grid-area: tile2;
+}
+
+[data-board-position="3"] {
+    grid-area: tile3;
+}
+
+[data-board-position="4"] {
+    grid-area: tile4;
+}
+
+[data-board-position="5"] {
+    grid-area: tile5;
+}
+
+[data-board-position="6"] {
+    grid-area: tile6;
+}
+
+[data-board-position="7"] {
+    grid-area: tile7;
+}
+
+[data-board-position="8"] {
+    grid-area: tile8;
 }
 
 .end-screen-container {
@@ -200,12 +185,12 @@ form {
     background-color: white;
     border: solid 2px black;
     box-shadow: 1px 2px 10px darkgray;
-    padding: 16px;
     position: absolute;
     top: calc((100% / 2) - (286px / 2));
     left: calc((100% / 2) - (360px / 2));
     width: 324px;
     height: 250px;
+    padding: 16px;
     opacity: 0.75;
 }
 
@@ -216,17 +201,17 @@ form {
 .results-message {
     font-size: x-large;
     font-weight: 600;
-    margin: 0 0 16px 0;
-    width: fit-content;
     text-align: center;
     white-space: pre;
+    width: fit-content;
+    margin: 0 0 16px 0;
     line-height: 1.75rem;
 }
 
 .computer-message {
-    margin: 16px 0;
     text-align: center;
     white-space: pre;
+    margin: 16px 0;
 }
 
 .end-screen-button-container {
@@ -234,6 +219,21 @@ form {
     justify-content: space-evenly;
     width: 100%;
     margin: 16px 0 0;
+}
+
+input,
+button {
+    appearance: none;
+}
+
+input[type="radio"]:hover,
+input[type="button"]:hover {
+    cursor: pointer;
+}
+
+input[type="button"]:active {
+    background-color: rgb(195, 195, 195);
+    box-shadow: inset 0 2px 5px 1px darkgray;
 }
 
 @keyframes hide-animation {
@@ -265,10 +265,6 @@ form {
     animation-name: display-animation;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-}
-
-.default-display-none {
-    display: none;
 }
 
 @keyframes game-board-display-animation {
@@ -350,4 +346,8 @@ form {
         width: 80%;
         left: auto;
     }
+}
+
+.default-display-none {
+    display: none;
 }
