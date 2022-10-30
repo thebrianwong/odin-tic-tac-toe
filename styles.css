@@ -332,6 +332,10 @@ form {
     .form-container {
         width: 80%;
     }
+    .invalid-move-error-message {
+        width: 80%;
+        left: auto;
+    }
     .board-tile {
         height: auto;
         width: auto;
