@@ -301,6 +301,9 @@ const GameFlowController = (() => {
     const getCurrentPlayer = () => {
         return currentPlayer;
     }
+    const setCurrentPlayer = (player) => {
+        currentPlayer = player;
+    }
     const addPlayerToArray = (player) => {
         playerObjectsArray.push(player)
     }
@@ -401,7 +404,7 @@ const GameFlowController = (() => {
         }
     }
     const alternateToComputerTurn = () => {
-        const computerPlayer = playerObjectsArray[1];
+        const computerPlayer = getPlayerFromArray(1);
         DOMController.togglePlayerInput("disable");
         setTimeout(computerPlayer.makeComputerMove, 500);
         setTimeout(DOMController.togglePlayerInput.bind(this, "enable"), 500);
@@ -421,14 +424,11 @@ const GameFlowController = (() => {
             }
         }
     };
-    const setCurrentPlayer = (player) => {
-        currentPlayer = player;
-    }
     const alternateCurrentPlayer = () => {
-        if (currentPlayer === playerObjectsArray[0]) {
-            currentPlayer = playerObjectsArray[1];
+        if (currentPlayer === getPlayerFromArray(0)) {
+            currentPlayer = getPlayerFromArray(1);
         } else {
-            currentPlayer = playerObjectsArray[0];
+            currentPlayer = getPlayerFromArray(0);
         }
     }
     const startGame = () => {
@@ -450,12 +450,14 @@ const GameFlowController = (() => {
         GameBoard.resetGameBoardState();
         DOMController.resetGameBoardElement();
         setGameInProgress(true);
-        currentPlayer = getPlayerFromArray(0);
+        setCurrentPlayer(getPlayerFromArray(0));
     }
     const resetPlayerArray = () => {
         playerObjectsArray = [];
     }
-    return {getCurrentPlayer,receivePlayerGameInput, startGame, createPlayerOne, createPlayerTwo, addPlayersToArray: addPlayerToArray, getPlayerArray, getPlayerFromArray, setCurrentPlayer, getGameMode, createPlayerComputer, playAgain, exitToMainMenu, setGameMode, playerObjectsArray, resolvePlayerGameInput};
+    return {getGameMode, setGameMode, getCurrentPlayer, setCurrentPlayer, getPlayerArray, getPlayerFromArray,
+            createPlayerOne, createPlayerTwo,receivePlayerGameInput, createPlayerComputer, resolvePlayerGameInput,
+            startGame, playAgain, exitToMainMenu};
 })();
 
 
