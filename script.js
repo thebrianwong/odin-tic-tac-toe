@@ -61,7 +61,230 @@ const Computer = (name, sign) => {
         DOMController.updateGameBoardElement(currentPlayer, randomTile);
         GameFlowController.resolvePlayerGameInput();
     }
-    return {getName, getSign, test, makeRandomMove};
+    const testMakeSmarterMove = () => {
+        let tileHeuristics = [];
+        let highestHeuristic = null;
+        let optimalTile = null;
+        const humanPlayerSign = GameFlowController.getPlayerFromArray(0).getSign();
+        const gameBoardState = GameBoard.getGameBoardState();
+        // look at each tile to evaluate and assign heuristic
+        for (tile in gameBoardState) {
+            tile = Number(tile)
+            let heuristic = 0;
+            // if tile is already occupied, assign 0
+            if (gameBoardState[tile] !== null) {
+                tileHeuristics.push(heuristic);
+            } else {
+                // check if tile can make a 3 in a row
+                if (tile === 0 && ((gameBoardState[1] === sign && gameBoardState[2] === sign) ||
+                    (gameBoardState[3] === sign && gameBoardState[6] === sign) ||
+                    (gameBoardState[4] === sign && gameBoardState[8] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 1 && ((gameBoardState[0] === sign && gameBoardState[2] === sign) ||
+                    (gameBoardState[4] === sign && gameBoardState[7] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 2 && ((gameBoardState[0] === sign && gameBoardState[1] === sign) ||
+                (gameBoardState[4] === sign && gameBoardState[6] === sign) ||
+                (gameBoardState[5] === sign && gameBoardState[8] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 3 && ((gameBoardState[4] === sign && gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign && gameBoardState[6] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 4 && ((gameBoardState[1] === sign && gameBoardState[7] === sign) ||
+                (gameBoardState[3] === sign && gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign && gameBoardState[8] === sign) ||
+                (gameBoardState[2] === sign && gameBoardState[6] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 5 && ((gameBoardState[3] === sign && gameBoardState[4] === sign) ||
+                (gameBoardState[2] === sign && gameBoardState[8] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 6 && ((gameBoardState[0] === sign && gameBoardState[3] === sign) ||
+                (gameBoardState[7] === sign && gameBoardState[8] === sign) ||
+                (gameBoardState[2] === sign && gameBoardState[4] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 7 && ((gameBoardState[1] === sign && gameBoardState[4] === sign) ||
+                (gameBoardState[6] === sign && gameBoardState[8] === sign))) {
+                    heuristic += 1000;
+                } else if (tile === 8 && ((gameBoardState[6] === sign && gameBoardState[7] === sign) ||
+                (gameBoardState[2] === sign && gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign && gameBoardState[4] === sign))) {
+                    heuristic += 1000;
+                }
+
+                // check if tile can block a 3 in a row
+                if (tile === 0 && ((gameBoardState[1] === humanPlayerSign && gameBoardState[2] === humanPlayerSign) ||
+                    (gameBoardState[3] === humanPlayerSign && gameBoardState[6] === humanPlayerSign) ||
+                    (gameBoardState[4] === humanPlayerSign && gameBoardState[8] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 1 && ((gameBoardState[0] === humanPlayerSign && gameBoardState[2] === humanPlayerSign) ||
+                    (gameBoardState[4] === humanPlayerSign && gameBoardState[7] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 2 && ((gameBoardState[0] === humanPlayerSign && gameBoardState[1] === humanPlayerSign) ||
+                (gameBoardState[4] === humanPlayerSign && gameBoardState[6] === humanPlayerSign) ||
+                (gameBoardState[5] === humanPlayerSign && gameBoardState[8] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 3 && ((gameBoardState[4] === humanPlayerSign && gameBoardState[5] === humanPlayerSign) ||
+                (gameBoardState[0] === humanPlayerSign && gameBoardState[6] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 4 && ((gameBoardState[1] === humanPlayerSign && gameBoardState[7] === humanPlayerSign) ||
+                (gameBoardState[3] === humanPlayerSign && gameBoardState[5] === humanPlayerSign) ||
+                (gameBoardState[0] === humanPlayerSign && gameBoardState[8] === humanPlayerSign) ||
+                (gameBoardState[2] === humanPlayerSign && gameBoardState[6] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 5 && ((gameBoardState[3] === humanPlayerSign && gameBoardState[4] === humanPlayerSign) ||
+                (gameBoardState[2] === humanPlayerSign && gameBoardState[8] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 6 && ((gameBoardState[0] === humanPlayerSign && gameBoardState[3] === humanPlayerSign) ||
+                (gameBoardState[7] === humanPlayerSign && gameBoardState[8] === humanPlayerSign) ||
+                (gameBoardState[2] === humanPlayerSign && gameBoardState[4] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 7 && ((gameBoardState[1] === humanPlayerSign && gameBoardState[4] === humanPlayerSign) ||
+                (gameBoardState[6] === humanPlayerSign && gameBoardState[8] === humanPlayerSign))) {
+                    heuristic += 500;
+                } else if (tile === 8 && ((gameBoardState[6] === humanPlayerSign && gameBoardState[7] === humanPlayerSign) ||
+                (gameBoardState[2] === humanPlayerSign && gameBoardState[5] === humanPlayerSign) ||
+                (gameBoardState[0] === humanPlayerSign && gameBoardState[4] === humanPlayerSign))) {
+                    heuristic += 500;
+                }
+
+                // check if tile can push for a win
+                if (tile === 0 && ((gameBoardState[1] === sign || gameBoardState[2] === sign) ||
+                    (gameBoardState[3] === sign || gameBoardState[6] === sign) ||
+                    (gameBoardState[4] === sign || gameBoardState[8] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 1 && ((gameBoardState[0] === sign || gameBoardState[2] === sign) ||
+                    (gameBoardState[4] === sign || gameBoardState[7] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 2 && ((gameBoardState[0] === sign || gameBoardState[1] === sign) ||
+                (gameBoardState[4] === sign || gameBoardState[6] === sign) ||
+                (gameBoardState[5] === sign || gameBoardState[8] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 3 && ((gameBoardState[4] === sign || gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign || gameBoardState[6] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 4 && ((gameBoardState[1] === sign || gameBoardState[7] === sign) ||
+                (gameBoardState[3] === sign || gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign || gameBoardState[8] === sign) ||
+                (gameBoardState[2] === sign || gameBoardState[6] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 5 && ((gameBoardState[3] === sign || gameBoardState[4] === sign) ||
+                (gameBoardState[2] === sign || gameBoardState[8] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 6 && ((gameBoardState[0] === sign || gameBoardState[3] === sign) ||
+                (gameBoardState[7] === sign || gameBoardState[8] === sign) ||
+                (gameBoardState[2] === sign || gameBoardState[4] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 7 && ((gameBoardState[1] === sign || gameBoardState[4] === sign) ||
+                (gameBoardState[6] === sign || gameBoardState[8] === sign))) {
+                    heuristic += 50;
+                } else if (tile === 8 && ((gameBoardState[6] === sign || gameBoardState[7] === sign) ||
+                (gameBoardState[2] === sign || gameBoardState[5] === sign) ||
+                (gameBoardState[0] === sign || gameBoardState[4] === sign))) {
+                    heuristic += 50;
+                }
+
+                // choose middle tile on first turn if possible
+                if (tile === 4) {
+                    heuristic += 50
+                }
+
+                // prevent middle tile double traps (L shape)
+                if ((tile === 0 && gameBoardState[1] === humanPlayerSign && gameBoardState[3] === humanPlayerSign) ||
+                    (tile === 2 && gameBoardState[1] === humanPlayerSign && gameBoardState[5] === humanPlayerSign) ||
+                    (tile === 6 && gameBoardState[3] === humanPlayerSign && gameBoardState[7] === humanPlayerSign) ||
+                    (tile === 8 && gameBoardState[5] === humanPlayerSign && gameBoardState[7] === humanPlayerSign)) {
+                    heuristic += 50
+                }
+
+                // prevent V-shaped double traps
+                if (tile === 2 && gameBoardState[4] === humanPlayerSign && gameBoardState[8] === humanPlayerSign) {
+                    heuristic += 50
+                }
+
+                // check adjacent tiles
+                // check down
+                if ((tile !== 6 && tile !== 7 && tile !== 8)) {
+                    if (gameBoardState[tile+3] === humanPlayerSign){
+                        heuristic += 7.5;
+                    } else if (gameBoardState[tile+3] === sign) {
+                        heuristic += 5
+                    }
+                }
+                // check right
+                if ((tile !== 2 && tile !== 5 && tile !== 8)) {
+                    if (gameBoardState[tile+1] === humanPlayerSign){
+                        heuristic += 7.5;
+                    } else if (gameBoardState[tile+1] === sign) {
+                        heuristic += 5
+                    }
+                }
+                // check up
+                if ((tile !== 0 && tile !== 1 && tile !== 2)) {
+                    if (gameBoardState[tile-3] === humanPlayerSign){
+                        heuristic += 7.5;
+                    } else if (gameBoardState[tile-3] === sign) {
+                        heuristic += 5
+                    }
+                }
+                // check left
+                if ((tile !== 0 && tile !== 3 && tile !== 6)) {
+                    if (gameBoardState[tile-1] === humanPlayerSign){
+                        heuristic += 7.5;
+                    } else if (gameBoardState[tile-1] === sign) {
+                        heuristic += 5
+                    }
+                }
+                // check upper left corner
+                if ((tile === 4 || tile === 5 || tile === 7 || tile === 8)) {
+                    if (gameBoardState[tile-4] === humanPlayerSign){
+                        heuristic += 8.5;
+                    } else if (gameBoardState[tile-4] === sign) {
+                        heuristic += 6
+                    }
+                }
+                // check upper right corner
+                if ((tile === 3 || tile === 4 || tile === 6 || tile === 7)) {
+                    if (gameBoardState[tile-2] === humanPlayerSign){
+                        heuristic += 8.5;
+                    } else if (gameBoardState[tile-2] === sign) {
+                        heuristic += 6
+                    }
+                }
+                // check lower left corner
+                if ((tile === 1 || tile === 2 || tile === 4 || tile === 5)) {
+                    if (gameBoardState[tile+2] === humanPlayerSign){
+                        heuristic += 8.5;
+                    } else if (gameBoardState[tile+2] === sign) {
+                        heuristic += 6
+                    }
+                }
+                // check lower right corner
+                if ((tile === 0 || tile === 1 || tile === 3 || tile === 4)) {
+                    if (gameBoardState[tile+4] === humanPlayerSign){
+                        heuristic += 8.5;
+                    } else if (gameBoardState[tile+4] === sign) {
+                        heuristic += 6
+                    }
+                }
+
+                tileHeuristics.push(heuristic);
+                if (highestHeuristic === null || heuristic > highestHeuristic) {
+                    highestHeuristic = heuristic;
+                }
+            }
+        }
+        for (heuristic in tileHeuristics) {
+            if (tileHeuristics[heuristic] === highestHeuristic) {
+                optimalTile = heuristic;
+                break;
+            }
+        }
+        GameBoard.updateGameBoardState(optimalTile);
+        const currentPlayer = GameFlowController.getCurrentPlayer();
+        DOMController.updateGameBoardElement(currentPlayer, optimalTile);
+        GameFlowController.resolvePlayerGameInput();
+    }
+    return {getName, getSign, test, makeRandomMove, testMakeSmarterMove};
 }
 
 const GameFlowController = (() => {
@@ -190,7 +413,7 @@ const GameFlowController = (() => {
         const computerPlayer = playerObjectsArray[1];
         // computerPlayer.makeRandomMove();
         DOMController.togglePlayerInput("disable");
-        setTimeout(computerPlayer.makeRandomMove, 500);
+        setTimeout(computerPlayer.testMakeSmarterMove, 500);
         setTimeout(DOMController.togglePlayerInput.bind(this, "enable"), 500);
         // alternateCurrentPlayer();
     }
